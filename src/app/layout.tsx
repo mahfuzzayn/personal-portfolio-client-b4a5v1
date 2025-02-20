@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Reddit_Sans } from "next/font/google";
 import "./globals.css";
+import Header from "@/components/shared/Header";
 
 const redditSans = Reddit_Sans({
     subsets: ["latin"],
@@ -21,7 +22,10 @@ export default function RootLayout({
     return (
         <html lang="en">
             <body className={redditSans.className}>
-                <main className="container max-w-[1920px] mx-auto bg-primary">{children}</main>
+                <main className="container max-w-[1920px] mx-auto bg-primary">
+                    <Header />
+                    {children}
+                </main>
             </body>
         </html>
     );

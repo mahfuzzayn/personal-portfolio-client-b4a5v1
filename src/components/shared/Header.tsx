@@ -1,9 +1,9 @@
 "use client";
 
 import {
-    DownloadIcon,
     FolderOpenDot,
     House,
+    LogInIcon,
     MenuIcon,
     Rss,
     UserRound,
@@ -76,10 +76,10 @@ const Header = () => {
                     </li>
                     <li>
                         <Link
-                            href="/resume"
-                            className="text-accent font-semibold hover:text-destructive transition-colors"
+                            href="/login"
+                            className="hover:text-primary transition-colors"
                         >
-                            Resume
+                            Login
                         </Link>
                     </li>
                 </ul>
@@ -123,11 +123,11 @@ const Header = () => {
                     </li>
                     <li>
                         <Link
-                            href="/contact"
-                            className="flex items-center gap-x-2 text-accent hover:text-destructive transition-colors"
+                            href="/login"
+                            className="flex items-center gap-x-2 hover:text-accent transition-colors"
                         >
-                            <DownloadIcon size={18} className="mb-0.5" />
-                            Resume
+                            <LogInIcon size={18} className="mb-0.5" />
+                            Login
                         </Link>
                     </li>
                 </ul>

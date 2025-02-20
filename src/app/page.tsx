@@ -1,14 +1,14 @@
 import Banner from "@/components/shared/Banner";
-import Header from "@/components/shared/Header";
+import FeaturedProjects from "@/components/shared/FeaturedProjects";
 import Skills from "@/components/shared/Skills";
 import React from "react";
 
 const HomePage = () => {
     return (
         <>
-            <Header />
             <Banner />
             <Skills />
+            <FeaturedProjects />
         </>
     );
 };

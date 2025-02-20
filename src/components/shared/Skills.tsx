@@ -17,14 +17,14 @@ const skills = [
 const Skills = () => {
     return (
         <section className="py-12 px-8 md:px-16 mt-10">
-            <h2 className="text-white text-3xl md:text-5xl font-extrabold text-center mb-10">
+            <h2 className="text-white text-3xl md:text-4xl font-extrabold text-center mb-10">
                 Skills
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 justify-center w-full gap-16">
                 {skills.map((skill, index) => (
                     <div key={index} className="w-full relative">
                         <>
-                            <span className="text-white text-3xl font-extrabold absolute top-4 left-4">
+                            <span className="text-white text-2xl md:text-3xl font-extrabold absolute top-4 left-4">
                                 {skill.name}
                             </span>
                             <span className="text-white text-2xl font-bold absolute right-4">
