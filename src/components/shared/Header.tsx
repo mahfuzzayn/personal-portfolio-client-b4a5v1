@@ -1,6 +1,7 @@
 "use client";
 
 import {
+    DownloadIcon,
     FolderOpenDot,
     House,
     MenuIcon,
@@ -31,7 +32,7 @@ const Header = () => {
     return (
         <header
             className={`flex flex-col md:flex-row md:justify-between md:items-center py-5 px-10 bg-secondary text-white relative transition-all overflow-hidden ${
-                isMenuOpen ? "h-[250px]" : "h-[80px]"
+                isMenuOpen ? "h-[260px]" : "h-[80px]"
             }`}
         >
             <Link href="/">
@@ -44,7 +45,7 @@ const Header = () => {
                     <li>
                         <Link
                             href="/"
-                            className="hover:text-accent transition-colors"
+                            className="hover:text-primary transition-colors"
                         >
                             Home
                         </Link>
@@ -52,7 +53,7 @@ const Header = () => {
                     <li>
                         <Link
                             href="/projects"
-                            className="hover:text-accent transition-colors"
+                            className="hover:text-primary transition-colors"
                         >
                             Projects
                         </Link>
@@ -60,7 +61,7 @@ const Header = () => {
                     <li>
                         <Link
                             href="/blogs"
-                            className="hover:text-accent transition-colors"
+                            className="hover:text-primary transition-colors"
                         >
                             Blogs
                         </Link>
@@ -68,9 +69,17 @@ const Header = () => {
                     <li>
                         <Link
                             href="/contact"
-                            className="hover:text-accent transition-colors"
+                            className="hover:text-primary transition-colors"
                         >
                             Contact
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            href="/resume"
+                            className="text-accent font-semibold hover:text-destructive transition-colors"
+                        >
+                            Resume
                         </Link>
                     </li>
                 </ul>
@@ -110,6 +119,15 @@ const Header = () => {
                         >
                             <UserRound size={18} className="mb-0.5" />
                             Contact
+                        </Link>
+                    </li>
+                    <li>
+                        <Link
+                            href="/contact"
+                            className="flex items-center gap-x-2 text-accent hover:text-destructive transition-colors"
+                        >
+                            <DownloadIcon size={18} className="mb-0.5" />
+                            Resume
                         </Link>
                     </li>
                 </ul>

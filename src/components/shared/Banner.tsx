@@ -7,7 +7,7 @@ import { ArrowUpRight, DownloadIcon } from "lucide-react";
 
 const Banner = () => {
     return (
-        <section className="relative w-full max-h-[620px] overflow-hidden">
+        <section className="relative w-full max-h-[768px] overflow-hidden">
             {/* Background Image */}
             <Image
                 src={bannerImage}
@@ -17,8 +17,8 @@ const Banner = () => {
                 alt="Banner Image"
                 className="absolute inset-0 z-0"
             />
-            <div className="absolute inset-0 bg-black bg-opacity-20 dark:bg-opacity-70 z-1"></div>
-            <div className="relative z-10 flex flex-col items-start justify-center h-[620px] text-center text-white px-8 md:px-10">
+            <div className="absolute inset-0 bg-secondary opacity-10 dark:bg-opacity-70 z-1"></div>
+            <div className="relative z-10 flex flex-col items-start justify-center h-[768px] text-center text-white px-8 md:px-10 lg:px-20 xl:px-32">
                 <h1 className="text-4xl md:text-6xl font-extrabold mb-4">
                     Mahfuz Zayn
                 </h1>
@@ -30,17 +30,17 @@ const Banner = () => {
                 <div className="flex gap-x-4 mt-6">
                     <Button
                         type="button"
-                        className="px-6 py-3 bg-primary text-white font-semibold rounded-md hover:bg-primary-dark transition-all flex gap-x-1"
+                        className="px-6 py-5 bg-primary text-white font-semibold text-md rounded-md hover:bg-primary-dark transition-all flex gap-x-1"
                     >
                         Projects
-                        <ArrowUpRight size={32} />
+                        <ArrowUpRight size={40} />
                     </Button>
                     <Button
                         type="button"
-                        className="px-6 py-3 bg-muted text-white font-semibold rounded-md hover:bg-primary-dark transition-all"
+                        className="px-6 py-5 bg-secondary text-white font-semibold text-md rounded-md hover:bg-primary-dark transition-all"
                     >
                         Resume
-                        <DownloadIcon />
+                        <DownloadIcon size={40} />
                     </Button>
                 </div>
             </div>
