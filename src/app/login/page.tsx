@@ -8,6 +8,12 @@ import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 
 const LoginPage = () => {
+    const handleLogin = async (provider: string) => {
+        await signIn(provider, {
+            callbackUrl: "http://localhost:3000/",
+        });
+    };
+
     return (
         <section className="flex justify-center min-h-screen">
             <div className="flex flex-col justify-center items-center text-center text-white p-10 gap-y-5">
@@ -16,11 +22,7 @@ const LoginPage = () => {
                 </h2>
                 <Button
                     className="w-full max-w-[420px] bg-white text-black p-6 hover:bg-white text-md"
-                    onClick={() =>
-                        signIn("google", {
-                            callbackUrl: "http://localhost:3000/",
-                        })
-                    }
+                    onClick={() => handleLogin("google")}
                 >
                     <Image
                         src={googleLogo}
@@ -32,11 +34,7 @@ const LoginPage = () => {
                 </Button>
                 <Button
                     className="w-full max-w-[420px] bg-black text-white p-6 hover:bg-black text-md"
-                    onClick={() =>
-                        signIn("github", {
-                            callbackUrl: "http://localhost:3000/",
-                        })
-                    }
+                    onClick={() => handleLogin("github")}
                 >
                     <Image
                         src={githubLogo}

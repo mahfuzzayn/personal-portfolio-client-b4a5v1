@@ -1,9 +1,11 @@
 "use server"
 
-import { UserData } from "@/types";
+type UserData = {
+    email: string;
+}
 
-export const registerUser = async (data: UserData) => {
-    const res = await fetch(`${process.env.BACKEND_URL}/users/register-user`, {
+export const getUser = async (data: UserData) => {
+    const res = await fetch(`${process.env.BACKEND_URL}/users`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",

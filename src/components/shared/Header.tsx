@@ -3,17 +3,29 @@
 import {
     FolderOpenDot,
     House,
+    LayoutDashboardIcon,
     LogInIcon,
+    LogOutIcon,
     MenuIcon,
     Rss,
     UserRound,
     X,
 } from "lucide-react";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { signOut } from "next-auth/react";
 
-const Header = () => {
+type UserProps = {
+    user?: {
+        name?: string | null | undefined;
+        email?: string | null | undefined;
+        image?: string | null | undefined;
+    };
+};
+
+const Header = ({ session }: { session: UserProps | null }) => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const menuRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         const handleResize = () => {
@@ -26,13 +38,36 @@ const Header = () => {
 
         handleResize();
 
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+        const handleClickOutside = (event: MouseEvent) => {
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(event.target as Node)
+            ) {
+                setIsMenuOpen(false);
+            }
+        };
+
+        if (isMenuOpen) {
+            window.addEventListener("mousedown", handleClickOutside);
+        } else {
+            window.removeEventListener("mousedown", handleClickOutside);
+        }
+
+        return () => {
+            window.removeEventListener("resize", handleResize);
+            window.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [isMenuOpen]);
 
     return (
         <header
+            ref={menuRef}
             className={`flex flex-col md:flex-row md:justify-between md:items-center py-5 px-10 bg-secondary text-white relative transition-all overflow-hidden ${
-                isMenuOpen ? "h-[260px]" : "h-[80px]"
+                isMenuOpen && session?.user
+                    ? "h-[290px]"
+                    : isMenuOpen
+                    ? "h-[260px]"
+                    : "h-[80px]"
             }`}
         >
             <Link href="/">
@@ -74,14 +109,35 @@ const Header = () => {
                             Contact
                         </Link>
                     </li>
-                    <li>
-                        <Link
-                            href="/login"
-                            className="hover:text-primary transition-colors"
-                        >
-                            Login
-                        </Link>
-                    </li>
+                    {!session?.user ? (
+                        <li>
+                            <Link
+                                href="/login"
+                                className="hover:text-primary transition-colors"
+                            >
+                                Login
+                            </Link>
+                        </li>
+                    ) : (
+                        <>
+                            <li>
+                                <Link
+                                    href="/dashboard"
+                                    className="hover:text-primary transition-colors"
+                                >
+                                    Dashboard
+                                </Link>
+                            </li>
+                            <li>
+                                <button
+                                    onClick={() => signOut()}
+                                    className="hover:text-primary transition-colors"
+                                >
+                                    Logout
+                                </button>
+                            </li>
+                        </>
+                    )}
                 </ul>
             </nav>
             <nav className={`${isMenuOpen ? "block" : "hidden"}`}>
@@ -90,6 +146,7 @@ const Header = () => {
                         <Link
                             href="/"
                             className="flex items-center gap-x-2 hover:text-accent transition-colors"
+                            onClick={() => setIsMenuOpen(false)}
                         >
                             <House size={18} className="mb-0.5" /> Home
                         </Link>
@@ -98,6 +155,7 @@ const Header = () => {
                         <Link
                             href="/projects"
                             className="flex items-center gap-x-2 hover:text-accent transition-colors"
+                            onClick={() => setIsMenuOpen(false)}
                         >
                             <FolderOpenDot size={18} className="mb-0.5" />
                             Projects
@@ -107,6 +165,7 @@ const Header = () => {
                         <Link
                             href="/blogs"
                             className="flex items-center gap-x-2 hover:text-accent transition-colors"
+                            onClick={() => setIsMenuOpen(false)}
                         >
                             <Rss size={18} className="mb-0.5" />
                             Blogs
@@ -116,24 +175,58 @@ const Header = () => {
                         <Link
                             href="/contact"
                             className="flex items-center gap-x-2 hover:text-accent transition-colors"
+                            onClick={() => setIsMenuOpen(false)}
                         >
                             <UserRound size={18} className="mb-0.5" />
                             Contact
                         </Link>
                     </li>
-                    <li>
-                        <Link
-                            href="/login"
-                            className="flex items-center gap-x-2 hover:text-accent transition-colors"
-                        >
-                            <LogInIcon size={18} className="mb-0.5" />
-                            Login
-                        </Link>
-                    </li>
+                    {!session?.user ? (
+                        <li>
+                            <Link
+                                href="/login"
+                                className="flex items-center gap-x-2 hover:text-accent transition-colors"
+                                onClick={() => setIsMenuOpen(false)}
+                            >
+                                <LogInIcon size={18} className="mb-0.5" />
+                                Login
+                            </Link>
+                        </li>
+                    ) : (
+                        <>
+                            <li>
+                                <Link
+                                    href="/dashboard"
+                                    className="flex items-center gap-x-2 hover:text-primary transition-colors"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    <LayoutDashboardIcon
+                                        size={18}
+                                        className="mb-0.5"
+                                    />
+                                    Dashboard
+                                </Link>
+                            </li>
+                            <li>
+                                <button
+                                    onClick={() => {
+                                        signOut();
+                                        setIsMenuOpen(false);
+                                    }}
+                                    className="flex items-center gap-x-2 hover:text-primary transition-colors"
+                                >
+                                    <LogOutIcon size={18} className="mb-0.5" />
+                                    Logout
+                                </button>
+                            </li>
+                        </>
+                    )}
                 </ul>
             </nav>
             <div className="md:hidden absolute top-[25px] right-10">
-                <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <button
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                >
                     {!isMenuOpen ? <MenuIcon size={30} /> : <X size={30} />}
                 </button>
             </div>

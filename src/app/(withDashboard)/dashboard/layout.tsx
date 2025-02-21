@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
-import { Reddit_Sans } from "next/font/google";
-import "./globals.css";
-import Header from "@/components/shared/Header";
-import { getServerSession } from "next-auth";
 import SessionProviderWrapper from "@/components/shared/SessionProviderWrapper";
+import { Reddit_Sans } from "next/font/google";
 
 const redditSans = Reddit_Sans({
     subsets: ["latin"],
@@ -11,23 +8,20 @@ const redditSans = Reddit_Sans({
 });
 
 export const metadata: Metadata = {
-    title: "Personal Portfolio",
+    title: "Dashboard Personal Portfolio",
     description:
         "Welcome to personal portfolio. Explore works, projects, and ideas. Let's explore something amazing together.",
 };
 
-export default async function RootLayout({
+export default async function DashboardLayout({
     children,
 }: Readonly<{
     children: React.ReactNode;
 }>) {
-    const session = await getServerSession();
-
     return (
         <html lang="en">
             <body className={redditSans.className}>
                 <main className="container max-w-[1920px] mx-auto bg-primary">
-                    <Header session={session} />
                     <SessionProviderWrapper>{children}</SessionProviderWrapper>
                 </main>
             </body>
