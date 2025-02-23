@@ -2,8 +2,8 @@
 
 import React from "react";
 import Image from "next/image";
-import googleLogo from "../../assets/icons/google-logo.png";
-import githubLogo from "../../assets/icons/github-logo.png";
+import googleLogo from "../../../assets/icons/google-logo.png";
+import githubLogo from "../../../assets/icons/github-logo.png";
 import { Button } from "@/components/ui/button";
 import { signIn } from "next-auth/react";
 

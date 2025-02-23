@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
-import { signOut } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 
 type UserProps = {
     user?: {
@@ -23,9 +23,10 @@ type UserProps = {
     };
 };
 
-const Header = ({ session }: { session: UserProps | null }) => {
+const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const menuRef = useRef<HTMLDivElement | null>(null);
+    const { data: session }: { data: UserProps | null } = useSession();
 
     useEffect(() => {
         const handleResize = () => {
@@ -224,9 +225,7 @@ const Header = ({ session }: { session: UserProps | null }) => {
                 </ul>
             </nav>
             <div className="md:hidden absolute top-[25px] right-10">
-                <button
-                    onClick={() => setIsMenuOpen(!isMenuOpen)}
-                >
+                <button onClick={() => setIsMenuOpen(!isMenuOpen)}>
                     {!isMenuOpen ? <MenuIcon size={30} /> : <X size={30} />}
                 </button>
             </div>
