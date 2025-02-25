@@ -2,13 +2,13 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-    title: "Login ‣ Personal Portfolio",
-};
+    title: "Create Blog ‣ Dashboard ‣ Personal Portfolio"
+}
 
-const CommonLayout = ({
+const BlogsPageLayout = ({
     children,
 }: Readonly<{ children: React.ReactNode }>) => {
     return <>{children}</>;
 };
 
-export default CommonLayout;
+export default BlogsPageLayout;

@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import SessionProviderWrapper from "@/components/shared/SessionProviderWrapper";
+import PPSidebar from "@/components/shared/Sidebar";
+import { SidebarProvider } from "@/components/ui/sidebar";
+import ToasterProvider from "@/utils/toaster/ToasterProvider";
 
 export const metadata: Metadata = {
     title: "Dashboard ‣ Personal Portfolio",
@@ -13,8 +16,14 @@ export default async function DashboardLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <main className="container max-w-[1920px] mx-auto bg-primary">
-            <SessionProviderWrapper>{children}</SessionProviderWrapper>
-        </main>
+        <>
+            <SessionProviderWrapper>
+                <SidebarProvider>
+                    <PPSidebar />
+                    <ToasterProvider />
+                    {children}
+                </SidebarProvider>
+            </SessionProviderWrapper>
+        </>
     );
 }
