@@ -3,6 +3,7 @@ import { Reddit_Sans } from "next/font/google";
 import "./globals.css";
 import SessionProviderWrapper from "@/components/shared/SessionProviderWrapper";
 import ReduxProvider from "@/redux/ReduxProvider";
+import ToasterProvider from "@/utils/toaster/ToasterProvider";
 
 const redditSans = Reddit_Sans({
     subsets: ["latin"],
@@ -26,7 +27,7 @@ export default async function RootLayout({
                 <main className="container max-w-[1920px] mx-auto bg-primary">
                     <ReduxProvider>
                         <SessionProviderWrapper>
-                            {children}
+                            {children} <ToasterProvider />
                         </SessionProviderWrapper>
                     </ReduxProvider>
                 </main>

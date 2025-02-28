@@ -1,17 +1,18 @@
 import { TBlog } from "@/types";
 import moment from "moment";
-import { Button } from "../ui/button";
-import { Separator } from "../ui/separator";
+
 import Link from "next/link";
 import DeleteBlogModal from "./DeleteBlogModal";
+import { Separator } from "@/components/ui/separator";
+import { Button } from "@/components/ui/button";
 
 const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
     return (
-        <section className="grid grid-cols-1 lg:grid-cols-2 m-10 gap-5 max-w-[1268px]">
-            {blogs.map((blog, index) => (
+        <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 m-10 gap-5 max-w-[1268px]">
+            {blogs.map((blog, index: number) => (
                 <div
                     key={blog._id}
-                    className="text-white bg-secondary rounded-md"
+                    className="text-white bg-cyan-700 rounded-md"
                 >
                     <div className="p-4 md:p-6 space-y-3">
                         <h2 className="text-2xl md:text-3xl font-semibold">
@@ -27,9 +28,9 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
                         </p>
                         <p className="text-gray-100">
                             <span className="font-semibold">Posted on:</span>{" "}
-                            {moment(blog?.createdAt)
-                                .utc()
-                                .format("D MMMM, YYYY [at] h:mm A")}
+                            {moment(blog?.createdAt).format(
+                                "D MMMM, YYYY [at] h:mm A"
+                            )}
                         </p>
                     </div>
                     <Separator className="bg-primary" />

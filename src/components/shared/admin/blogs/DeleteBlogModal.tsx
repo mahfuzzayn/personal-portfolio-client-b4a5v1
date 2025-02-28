@@ -19,16 +19,19 @@ import { TBlog, TResponse } from "@/types";
 import { useDeleteBlogMutation } from "@/redux/features/blog/blog.api";
 import { toast } from "sonner";
 import { toastStyles } from "@/constants/toaster";
+import { useRouter } from "next/navigation";
+
 
 const DeleteBlogModal = ({ blog }: { blog: TBlog }) => {
     const [open, setOpen] = useState(false);
     const [deleteBlog] = useDeleteBlogMutation();
+    const router = useRouter();
 
     const handleDelete = async () => {
         const toastId = toast.loading("Deleting blog...", {
             style: toastStyles.loading,
         });
-        
+
         try {
             const res = (await deleteBlog({
                 _id: blog?._id,
@@ -40,6 +43,8 @@ const DeleteBlogModal = ({ blog }: { blog: TBlog }) => {
                     style: toastStyles.error,
                 });
             } else {
+                router.refresh()
+
                 toast.success("Blog deleted", {
                     id: toastId,
                     style: toastStyles.success,

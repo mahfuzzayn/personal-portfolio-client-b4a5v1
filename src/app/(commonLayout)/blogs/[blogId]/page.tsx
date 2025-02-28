@@ -1,5 +1,4 @@
-
-import BlogDetail from "@/components/shared/admin/blogs/BlogDetail";
+import BlogDetail from "@/components/shared/user/BlogDetail";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -18,7 +17,7 @@ export const generateMetadata = async ({
     return { title: `${blogData?.title} ‣ Blog Detail ‣ Personal Portfolio` };
 };
 
-const DashboardBlogDetailPage = async ({ params }: { params: { blogId: string } }) => {
+const BlogDetailPage = async ({ params }: { params: { blogId: string } }) => {
     const res = await fetch(
         `${process.env.BACKEND_URL}/blogs/${params.blogId}`
     );
@@ -26,9 +25,9 @@ const DashboardBlogDetailPage = async ({ params }: { params: { blogId: string } 
     const { data: blogData } = await res.json();
 
     return (
-        <>
+        <section className="min-h-screen pt-10 pb-20">
             <div className="m-10">
-                <Link href="/dashboard/blogs">
+                <Link href="/blogs">
                     <Button className="bg-secondary hover:!bg-secondary">
                         <ArrowLeft />
                         Blogs
@@ -36,8 +35,8 @@ const DashboardBlogDetailPage = async ({ params }: { params: { blogId: string } 
                 </Link>
             </div>
             <BlogDetail blog={blogData} />
-        </>
+        </section>
     );
 };
 
-export default DashboardBlogDetailPage;
+export default BlogDetailPage;

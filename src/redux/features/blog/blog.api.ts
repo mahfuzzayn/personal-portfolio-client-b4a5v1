@@ -15,6 +15,19 @@ const blogApi = baseApi.injectEndpoints({
                 method: "GET",
             }),
         }),
+        getSingleBlog: builder.query({
+            query: (data) => ({
+                url: `/blogs/${data._id}`,
+                method: "GET",
+            }),
+        }),
+        updateBlog: builder.mutation({
+            query: (args) => ({
+                url: `/blogs/${args?._id}`,
+                method: "PATCH",
+                body: args.data,
+            }),
+        }),
         deleteBlog: builder.mutation({
             query: (data) => ({
                 url: `/blogs/${data._id}`,
@@ -24,4 +37,10 @@ const blogApi = baseApi.injectEndpoints({
     }),
 });
 
-export const { useAddBlogMutation, useGetAllBlogsQuery, useDeleteBlogMutation } = blogApi;
+export const {
+    useAddBlogMutation,
+    useGetAllBlogsQuery,
+    useGetSingleBlogQuery,
+    useUpdateBlogMutation,
+    useDeleteBlogMutation,
+} = blogApi;

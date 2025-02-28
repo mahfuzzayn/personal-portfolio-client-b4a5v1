@@ -1,32 +1,15 @@
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
     ArrowLeft,
     BookIcon,
     InboxIcon,
     MessageSquareIcon,
 } from "lucide-react";
-import { getServerSession } from "next-auth";
 import Link from "next/link";
 import React from "react";
 
-const DashboardPage = async () => {
-    const session = await getServerSession();
-    const userRes = await fetch(
-        `${process.env.BACKEND_URL}/users/${session?.user.email}`
-    );
-
-    const { data: user } = await userRes.json();
-
-    const blogsRes = await fetch(
-        `${process.env.BACKEND_URL}/blogs?authorId=${user?._id}`
-    );
-
-    const messagesRes = await fetch(`${process.env.BACKEND_URL}/messages`);
-
-    const { data: blogsData } = await blogsRes.json();
-
-    const { data: messagesData } = await messagesRes.json();
-
+const DashboardLoadingPage = async () => {
     return (
         <section className="w-full">
             <div className="m-10">
@@ -44,21 +27,21 @@ const DashboardPage = async () => {
                         <h2 className="text-xl mb-2">Total Blogs</h2>
                         <div className="flex items-center gap-x-2 font-semibold">
                             <BookIcon />
-                            <p className="text-2xl">{blogsData?.length}</p>
+                            <Skeleton className="h-8 w-[32px] !bg-destructive" />
                         </div>
                     </div>
                     <div className="bg-muted text-white p-4 rounded-md">
                         <h2 className="text-xl mb-2">Total Projects</h2>
                         <div className="flex items-center gap-x-2 font-semibold">
                             <InboxIcon />
-                            <p className="text-2xl">{0}</p>
+                            <Skeleton className="h-8 w-[32px] !bg-destructive" />
                         </div>
                     </div>
                     <div className="bg-muted text-white p-4 rounded-md">
                         <h2 className="text-xl mb-2">Total Messages</h2>
                         <div className="flex items-center gap-x-2 font-semibold">
                             <MessageSquareIcon />
-                            <p className="text-2xl">{messagesData?.length}</p>
+                            <Skeleton className="h-8 w-[32px] !bg-destructive" />
                         </div>
                     </div>
                 </div>
@@ -67,4 +50,4 @@ const DashboardPage = async () => {
     );
 };
 
-export default DashboardPage;
+export default DashboardLoadingPage;

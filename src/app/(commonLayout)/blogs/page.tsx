@@ -1,12 +1,17 @@
-import { Metadata } from "next";
-import React from "react";
+import Blogs from "@/components/shared/user/Blogs";
 
-export const metadata: Metadata = {
-    title: "Blogs ‣ Personal Portfolio",
-};
+const BlogsPage = async () => {
+    const res = await fetch(
+        `${process.env.BACKEND_URL}/blogs`
+    );
 
-const BlogsPage = () => {
-    return <div></div>;
+    const { data: blogsData } = await res.json();
+
+    return (
+        <section className="min-h-screen pt-10 pb-20">
+            <Blogs blogs={blogsData} />
+        </section>
+    );
 };
 
 export default BlogsPage;

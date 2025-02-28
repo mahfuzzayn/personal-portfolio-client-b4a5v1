@@ -1,8 +1,10 @@
+import { TUser } from "./user.types";
+
 export type TBlog = {
     _id: string;
     title: string;
     content: string;
-    author: string;
+    author: TUser;
     image: string;
     category:
         | "Web Development"

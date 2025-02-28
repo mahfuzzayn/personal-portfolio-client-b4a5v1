@@ -1,4 +1,5 @@
-import Blogs from "@/components/shared/Blogs";
+
+import Blogs from "@/components/shared/admin/blogs/Blogs";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getServerSession } from "next-auth";
