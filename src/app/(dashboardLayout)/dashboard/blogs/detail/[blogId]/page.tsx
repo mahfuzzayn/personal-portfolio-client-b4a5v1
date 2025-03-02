@@ -1,5 +1,4 @@
-
-import BlogDetail from "@/components/shared/admin/blogs/BlogDetail";
+import BlogDetail from "@/components/shared/user/blogs/BlogDetail";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";

@@ -1,4 +1,4 @@
-import MessageDetail from "@/components/shared/admin/messages/MessageDetail";
+import MessageDetail from "@/components/shared/user/messages/MessageDetail";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";

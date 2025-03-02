@@ -5,27 +5,22 @@ import moment from "moment";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
-import { validateImage } from "@/utils/validators/image";
 
-const BlogDetail = ({ blog }: { blog: TBlog }) => {
+const UpdateBlog = ({ blog }: { blog: TBlog }) => {
     return (
         <section className="m-10">
             <h2 className="text-white text-2xl md:text-3xl font-bold">
                 Details of <span className="text-accent">{blog.title}</span>
             </h2>
-            {validateImage(blog.image).then((validate) =>
-                validate ? (
-                    <div className="relative mt-10 mb-4 w-full max-w-[600px] h-[300px] ">
-                        <Image
-                            src={blog.image}
-                            fill
-                            priority
-                            alt="Blog Image"
-                            className="rounded-lg object-cover"
-                        />
-                    </div>
-                ) : null
-            )}
+            <div className="relative mt-10 mb-4 w-full max-w-[600px] h-[300px] ">
+                <Image
+                    src={blog.image}
+                    fill
+                    priority
+                    alt="Blog Image"
+                    className="rounded-lg object-cover"
+                />
+            </div>
             <div className="text-gray-200 mt-10 text-lg space-y-4">
                 <p className="font-bold">
                     Title: <span className="font-normal">{blog.title}</span>
@@ -48,21 +43,11 @@ const BlogDetail = ({ blog }: { blog: TBlog }) => {
                 <p className="font-bold">
                     Posted on:{" "}
                     <span className="font-normal">
-                        {moment(blog?.createdAt).format(
-                            "D MMMM, YYYY [at] h:mm A"
-                        )}
+                        {moment(blog?.createdAt)
+                            .utc()
+                            .format("D MMMM, YYYY [at] h:mm A")}
                     </span>
                 </p>
-                {blog.createdAt !== blog.updatedAt && (
-                    <p className="font-bold">
-                        Updated on:{" "}
-                        <span className="font-normal">
-                            {moment(blog?.updatedAt).format(
-                                "D MMMM, YYYY [at] h:mm A"
-                            )}
-                        </span>
-                    </p>
-                )}
                 <Link href={`/dashboard/blogs/update/${blog._id}`}>
                     <Button className="!bg-muted !mt-10">
                         Update this blog <ArrowRight />
@@ -73,4 +58,4 @@ const BlogDetail = ({ blog }: { blog: TBlog }) => {
     );
 };
 
-export default BlogDetail;
+export default UpdateBlog;

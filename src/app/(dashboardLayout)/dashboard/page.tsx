@@ -23,9 +23,15 @@ const DashboardPage = async () => {
 
     const messagesRes = await fetch(`${process.env.BACKEND_URL}/messages`);
 
+    const projectsRes = await fetch(
+        `${process.env.BACKEND_URL}/projects?creatorId=${user?._id}`
+    );
+
     const { data: blogsData } = await blogsRes.json();
 
     const { data: messagesData } = await messagesRes.json();
+
+    const { data: projectsData } = await projectsRes.json();
 
     return (
         <section className="w-full">
@@ -51,7 +57,7 @@ const DashboardPage = async () => {
                         <h2 className="text-xl mb-2">Total Projects</h2>
                         <div className="flex items-center gap-x-2 font-semibold">
                             <InboxIcon />
-                            <p className="text-2xl">{0}</p>
+                            <p className="text-2xl">{projectsData?.length}</p>
                         </div>
                     </div>
                     <div className="bg-muted text-white p-4 rounded-md">

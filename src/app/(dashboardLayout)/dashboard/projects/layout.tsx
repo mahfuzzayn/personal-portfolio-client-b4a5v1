@@ -2,10 +2,10 @@ import { Metadata } from "next";;
 import React from "react";
 
 export const metadata: Metadata = {
-    title: "Blogs ‣ Dashboard ‣ Personal Portfolio",
+    title: "Projects ‣ Dashboard ‣ Personal Portfolio",
 }
 
-const DashboardBlogsLayout = ({
+const DashboardProjectsLayout = ({
     children,
 }: Readonly<{ children: React.ReactNode }>) => {
     return (
@@ -15,4 +15,4 @@ const DashboardBlogsLayout = ({
     );
 };
 
-export default DashboardBlogsLayout;
+export default DashboardProjectsLayout;

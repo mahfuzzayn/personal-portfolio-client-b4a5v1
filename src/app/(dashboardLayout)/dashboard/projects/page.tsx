@@ -1,5 +1,4 @@
-
-import Blogs from "@/components/shared/admin/blogs/Blogs";
+import Projects from "@/components/shared/user/projects/Projects";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getServerSession } from "next-auth";
@@ -14,10 +13,10 @@ const DashboardProjectsPage = async () => {
     const { data: user } = await userRes.json();
 
     const res = await fetch(
-        `${process.env.BACKEND_URL}/blogs?authorId=${user?._id}`
+        `${process.env.BACKEND_URL}/projects?creatorId=${user?._id}`
     );
 
-    const { data: blogsData } = await res.json();
+    const { data: projectsData } = await res.json();
 
     return (
         <>
@@ -28,15 +27,15 @@ const DashboardProjectsPage = async () => {
                         Back to Dashboard
                     </Button>
                 </Link>
-                <h2 className="text-3xl font-semibold text-white">Blogs</h2>
-                <Link href="/dashboard/blogs/create-blog">
+                <h2 className="text-3xl font-semibold text-white">Projects</h2>
+                <Link href="/dashboard/projects/create-project">
                     <Button className="bg-muted hover:!bg-muted">
-                        Create Blog
+                        Create Project
                         <ArrowRight />
                     </Button>
                 </Link>
             </div>
-            <Blogs blogs={blogsData} />
+            <Projects projects={projectsData} />
         </>
     );
 };

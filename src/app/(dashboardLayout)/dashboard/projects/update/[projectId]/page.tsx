@@ -12,121 +12,129 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, PlusIcon, Trash2 } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Textarea } from "@/components/ui/textarea";
-import {
-    useGetSingleBlogQuery,
-    useUpdateBlogMutation,
-} from "@/redux/features/blog/blog.api";
 import { useSession } from "next-auth/react";
 import { useGetMeQuery } from "@/redux/features/user/user.api";
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
-import { blogCategories } from "@/constants/blog.const";
 import { toast } from "sonner";
 import { toastStyles } from "@/constants/toaster";
 import { TResponse } from "@/types";
 import { useParams, useRouter } from "next/navigation";
+import {
+    useGetSingleProjectQuery,
+    useUpdateProjectMutation,
+} from "@/redux/features/project/project.api";
 
 const formSchema = z.object({
     title: z.string().optional(),
-    author: z.string().optional(),
-    content: z.string().optional(),
-    image: z.any().optional(),
-    category: z
-        .enum(
-            [
-                "Web Development",
-                "Programming",
-                "Tech News",
-                "Personal Projects",
-                "Career & Productivity",
-                "AI & Machine Learning",
-                "Design & UI/UX",
-                "Other",
-            ],
-            {
-                errorMap: () => ({
-                    message: "Invalid category",
-                }),
+    creator: z.string().optional(),
+    description: z.string().optional(),
+    images: z
+        .any()
+        .optional()
+        .superRefine((file, ctx) => {
+            if (file && file.length > 0) {
+                if (file[0].size > 5 * 1024 * 1024) {
+                    ctx.addIssue({
+                        code: z.ZodIssueCode.custom,
+                        message: "Images must be less than 5MB.",
+                    });
+                }
+                if (!["image/jpeg", "image/png"].includes(file[0].type)) {
+                    ctx.addIssue({
+                        code: z.ZodIssueCode.custom,
+                        message: "Only JPEG and PNG images are allowed.",
+                    });
+                }
             }
-        )
-        .optional(),
+        }),
+    links: z.array(
+        z.object({
+            label: z.string().min(1, "Label is required."),
+            href: z.string().url("Enter a valid URL."),
+        })
+    ),
 });
 
-const UpdateBlogPage = () => {
-    const [updateBlog] = useUpdateBlogMutation();
+const UpdateProjectPage = () => {
+    const [updateProject] = useUpdateProjectMutation();
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const router = useRouter();
     const params = useParams();
     const session = useSession();
 
-    const { data: authorData } = useGetMeQuery(
+    const { data: creatorData } = useGetMeQuery(
         { email: session?.data?.user?.email },
         {
             skip: !session?.data,
         }
     );
 
-    const { data: blogData } = useGetSingleBlogQuery({
-        _id: params.blogId,
+    const { data: projectData } = useGetSingleProjectQuery({
+        projectId: params.projectId,
     });
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
             title: "",
-            author: "",
-            content: "",
-            image: "",
+            creator: "",
+            description: "",
+            images: "",
+            links: [{ label: "", href: "" }],
         },
     });
 
+    const { control, setValue } = form;
+    const { fields, append, remove } = useFieldArray({
+        control,
+        name: "links", // Matches the form field
+    });
+
     useEffect(() => {
-        if (blogData?.data) {
-            form.setValue("title", blogData?.data?.title);
-            form.setValue("author", blogData?.data?.author?.name);
-            form.setValue("content", blogData?.data?.content);
-            form.setValue("category", blogData?.data?.category);
+        if (projectData?.data) {
+            form.setValue("title", projectData?.data?.title);
+            form.setValue("creator", projectData?.data?.creator?.name);
+            form.setValue("description", projectData?.data?.description);
+
+            if (projectData?.data?.links) {
+                form.setValue("links", projectData?.data?.links);
+            }
         }
-    }, [blogData, form]);
+    }, [projectData, form]);
 
     const onSubmit = async (data: z.infer<typeof formSchema>) => {
-        const toastId = toast.loading("Updating blog...", {
+        const toastId = toast.loading("Updating project...", {
             style: toastStyles.loading,
         });
 
         const formData = new FormData();
 
-        const blogData = {
-            blog: {
+        const projectData = {
+            project: {
                 title: data?.title,
-                content: data?.content,
-                category: data?.category,
-                author: authorData?.data?._id,
+                description: data?.description,
+                creator: creatorData?.data?._id,
+                links: data?.links,
             },
         };
 
         try {
-            formData.append("data", JSON.stringify(blogData));
+            formData.append("data", JSON.stringify(projectData));
 
-            if (data.image) {
-                formData.append("file", data.image[0]);
+            if (data.images && data.images.length > 0) {
+                Array.from(data.images as FileList).forEach((file: File) => {
+                    formData.append("files", file);
+                });
             }
 
-            const res = (await updateBlog({
-                _id: params.blogId,
+            const res = (await updateProject({
+                projectId: params.projectId,
                 data: formData,
             })) as TResponse<any>;
 
@@ -138,7 +146,7 @@ const UpdateBlogPage = () => {
             } else {
                 router.refresh();
 
-                toast.success("Blog updated", {
+                toast.success("Project updated", {
                     id: toastId,
                     style: toastStyles.success,
                 });
@@ -154,10 +162,12 @@ const UpdateBlogPage = () => {
     return (
         <>
             <div className="m-10">
-                <Link href={`/dashboard/blogs/detail/${blogData?.data?._id}`}>
+                <Link
+                    href={`/dashboard/projects/detail/${projectData?.data?._id}`}
+                >
                     <Button className="bg-secondary hover:!bg-secondary">
                         <ArrowLeft />
-                        Back to Blog
+                        Back to Project
                     </Button>
                 </Link>
                 <Form {...form}>
@@ -166,9 +176,9 @@ const UpdateBlogPage = () => {
                         className="mt-10 space-y-8 text-white"
                     >
                         <h2 className="text-white text-3xl font-bold text-center">
-                            Update Blog:{" "}
+                            Update Project:{" "}
                             <span className="text-accent">
-                                {blogData?.data?.title}
+                                {projectData?.data?.title}
                             </span>
                         </h2>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
@@ -191,10 +201,10 @@ const UpdateBlogPage = () => {
                             />
                             <FormField
                                 control={form.control}
-                                name="author"
+                                name="creator"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Author</FormLabel>
+                                        <FormLabel>Creator</FormLabel>
                                         <FormControl>
                                             <Input
                                                 placeholder="What is your name?"
@@ -208,10 +218,10 @@ const UpdateBlogPage = () => {
                             />
                             <FormField
                                 control={form.control}
-                                name="content"
+                                name="description"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Content</FormLabel>
+                                        <FormLabel>Description</FormLabel>
                                         <FormControl>
                                             <Textarea
                                                 placeholder="Write a brief detail..."
@@ -225,16 +235,17 @@ const UpdateBlogPage = () => {
                             />
                             <FormField
                                 control={form.control}
-                                name="image"
+                                name="images"
                                 render={({
                                     field: { onChange, value, ref, ...rest },
                                 }) => (
                                     <FormItem>
-                                        <FormLabel>Image</FormLabel>
+                                        <FormLabel>Images</FormLabel>
                                         <FormControl>
                                             <Input
-                                                placeholder="Select an image"
+                                                placeholder="Select images"
                                                 type="file"
+                                                multiple
                                                 ref={(e) => {
                                                     fileInputRef.current = e;
                                                     ref(e);
@@ -257,50 +268,68 @@ const UpdateBlogPage = () => {
                                     </FormItem>
                                 )}
                             />
-                            <FormField
-                                control={form.control}
-                                name="category"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Category</FormLabel>
-                                        <FormControl>
-                                            <Select
-                                                onValueChange={field.onChange}
-                                                value={field.value}
+                            <div className="space-y-2">
+                                <h3 className="text-xl font-semibold">Links</h3>
+                                {fields.map((field: any, index) => (
+                                    <div
+                                        key={field.id}
+                                        className="flex flex-col md:flex-row gap-4 items-start md:items-center"
+                                    >
+                                        <FormField
+                                            control={form.control}
+                                            name={`links.${index}.label`}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Label</FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="GitHub, Live Demo, etc."
+                                                            className="bg-secondary placeholder:text-gray-200"
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name={`links.${index}.href`}
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>URL</FormLabel>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="https://example.com"
+                                                            className="bg-secondary placeholder:text-gray-200"
+                                                            {...field}
+                                                        />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        {fields.length > 1 && (
+                                            <Button
+                                                type="button"
+                                                className="mt-auto !bg-muted hover:!bg-muted"
+                                                onClick={() => remove(index)}
                                             >
-                                                <SelectTrigger className="w-[180px] bg-secondary placeholder:!text-gray-300">
-                                                    <SelectValue
-                                                        placeholder="Select a category"
-                                                        className=""
-                                                        {...field}
-                                                    />
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    <SelectGroup>
-                                                        {blogCategories.map(
-                                                            (category) => (
-                                                                <SelectItem
-                                                                    key={
-                                                                        category.value
-                                                                    }
-                                                                    value={
-                                                                        category.value
-                                                                    }
-                                                                >
-                                                                    {
-                                                                        category.label
-                                                                    }
-                                                                </SelectItem>
-                                                            )
-                                                        )}
-                                                    </SelectGroup>
-                                                </SelectContent>
-                                            </Select>
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
+                                                <Trash2 size={16} />
+                                            </Button>
+                                        )}
+                                    </div>
+                                ))}
+                                <Button
+                                    type="button"
+                                    className="bg-destructive hover:!bg-destructive p-2 !py-1 !mt-5"
+                                    onClick={() =>
+                                        append({ label: "", href: "" })
+                                    }
+                                >
+                                    <PlusIcon />
+                                </Button>
+                            </div>
                         </div>
                         <Button
                             type="submit"
@@ -315,4 +344,4 @@ const UpdateBlogPage = () => {
     );
 };
 
-export default UpdateBlogPage;
+export default UpdateProjectPage;

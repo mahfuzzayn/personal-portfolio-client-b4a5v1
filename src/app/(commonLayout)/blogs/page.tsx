@@ -1,4 +1,4 @@
-import Blogs from "@/components/shared/user/Blogs";
+import Blogs from "@/components/shared/user/blogs/Blogs";
 
 const BlogsPage = async () => {
     const res = await fetch(
