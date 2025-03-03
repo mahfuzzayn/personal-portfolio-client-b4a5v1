@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 
 const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
     return (
-        <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 m-10 gap-5 max-w-[1268px]">
+        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-10 gap-10 max-w-[1268px] mx-auto">
             {blogs.map((blog, index) => (
                 <div
                     key={blog._id}
-                    className="text-white bg-cyan-700 rounded-md"
+                    className="text-white bg-cyan-700 rounded-xl"
                 >
                     <div className="p-4 md:p-6 md:pb-2 space-y-3">
                         <h2 className="text-2xl md:text-3xl font-semibold">

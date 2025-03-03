@@ -1,6 +1,7 @@
 import { TMessage } from "@/types";
 import React from "react";
 import moment from "moment";
+import Link from "next/link";
 const MessageDetail = ({ message }: { message: TMessage }) => {
     return (
         <section className="m-10">
@@ -14,11 +15,17 @@ const MessageDetail = ({ message }: { message: TMessage }) => {
                         {message.name}
                     </span>
                 </p>
+                <p className="font-bold">
+                    Sender email:{" "}
+                    <Link href={`mailto:${message.email}`} className="font-medium text-muted">
+                        {message.email}
+                    </Link>
+                </p>
                 <p className="font-bold text-justify">
                     Message:{" "}
                     <span className="font-normal">{message.message}</span>
                 </p>
-                <p className="font-bold">
+                <p className="font-bold !mt-10">
                     Submitted on:{" "}
                     <span className="font-normal">
                         {moment(message?.createdAt).format(

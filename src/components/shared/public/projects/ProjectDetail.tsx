@@ -4,30 +4,28 @@ import { TLink, TProject } from "@/types";
 import Image from "next/image";
 import React from "react";
 import moment from "moment";
-import { Button } from "@/components/ui/button";
-import { ArrowRight, ArrowUpRight } from "lucide-react";
-import Link from "next/link";
 
-import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 // Swiper CSS Files
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 const ProjectDetail = ({ project }: { project: TProject }) => {
     return (
-        <section className="m-10 pb-20">
+        <section className="m-10">
             <h2 className="text-white text-2xl md:text-3xl font-bold">
-                Project Details of{" "}
-                <span className="text-accent">{project.title}</span>
+                Details of <span className="text-accent">{project.title}</span>
             </h2>
             <Swiper
                 navigation
                 pagination={{ type: "fraction" }}
                 modules={[Navigation, Pagination]}
-                className="my-swiper max-w-[400px] md:max-w-[600px] lg:max-w-[800px] !ml-0 my-10"
+                className="my-swiper max-w-[400px] md:max-w-[600px] lg:max-w-[800px] my-10 !ml-0"
             >
                 {project.images.map((image, index) => (
                     <SwiperSlide key={index}>
@@ -41,7 +39,7 @@ const ProjectDetail = ({ project }: { project: TProject }) => {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <div className="text-gray-200 mt-5 text-lg space-y-4">
+            <div className="text-gray-200 mt-10 text-lg space-y-4">
                 <p className="font-bold">
                     Project
                     <span className="ml-2 text-2xl md:text-3xl text-accent font-bold">
@@ -58,7 +56,21 @@ const ProjectDetail = ({ project }: { project: TProject }) => {
                     Description:{" "}
                     <span className="font-normal">{project.description}</span>
                 </p>
-                <p className="font-bold">
+                <ul className="flex flex-row flex-wrap gap-3 text-md md:text-lg text-gray-100 !my-5">
+                    {project.links.map((link: TLink, index) => (
+                        <li key={index}>
+                            <Link
+                                href={`${link.href}`}
+                                target="_blank"
+                                className="text-secondary bg-white px-2 py-1 rounded-md flex gap-x-1"
+                            >
+                                {link.label}
+                                <ArrowUpRight size={16} />
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+                <p className="font-bold !mt-10">
                     Published on:{" "}
                     <span className="font-normal">
                         {moment(project?.createdAt).format(
@@ -76,24 +88,6 @@ const ProjectDetail = ({ project }: { project: TProject }) => {
                         </span>
                     </p>
                 )}
-                <ul className="flex flex-row flex-wrap gap-3 text-md md:text-lg text-gray-100">
-                    {project.links.map((link: TLink, index) => (
-                        <li key={index}>
-                            <Link
-                                href={`${link.href}`}
-                                className="text-secondary bg-white px-2 py-1 rounded-md flex gap-x-1"
-                            >
-                                {link.label}
-                                <ArrowUpRight size={16} />
-                            </Link>
-                        </li>
-                    ))}
-                </ul>
-                <Link href={`/dashboard/projects/update/${project._id}`}>
-                    <Button className="!bg-muted !mt-10">
-                        Update this project <ArrowRight />
-                    </Button>
-                </Link>
             </div>
         </section>
     );

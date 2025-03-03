@@ -153,7 +153,7 @@ const UpdateBlogPage = () => {
 
     return (
         <>
-            <div className="m-10">
+            <div className="m-10 mb-20">
                 <Link href={`/dashboard/blogs/detail/${blogData?.data?._id}`}>
                     <Button className="bg-secondary hover:!bg-secondary">
                         <ArrowLeft />

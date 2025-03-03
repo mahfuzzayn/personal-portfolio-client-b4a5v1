@@ -1,4 +1,4 @@
-import BlogDetail from "@/components/shared/public/blogs/BlogDetail";
+import ProjectDetail from "@/components/shared/public/projects/ProjectDetail";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
@@ -6,35 +6,35 @@ import Link from "next/link";
 export const generateMetadata = async ({
     params,
 }: {
-    params: { blogId: string };
+    params: { projectId: string };
 }) => {
     const res = await fetch(
-        `${process.env.BACKEND_URL}/blogs/${params.blogId}`
+        `${process.env.BACKEND_URL}/projects/${params.projectId}`
     );
 
     const { data: blogData } = await res.json();
 
-    return { title: `${blogData?.title} ‣ Blog Detail ‣ Personal Portfolio` };
+    return { title: `${blogData?.title} ‣ Project Detail ‣ Personal Portfolio` };
 };
 
-const BlogDetailPage = async ({ params }: { params: { blogId: string } }) => {
+const BlogDetailPage = async ({ params }: { params: { projectId: string } }) => {
     const res = await fetch(
-        `${process.env.BACKEND_URL}/blogs/${params.blogId}`
+        `${process.env.BACKEND_URL}/projects/${params.projectId}`
     );
 
-    const { data: blogData } = await res.json();
+    const { data: projectData } = await res.json();
 
     return (
         <section className="min-h-screen pt-10 pb-20">
             <div className="m-10">
-                <Link href="/blogs">
+                <Link href="/projects">
                     <Button className="bg-secondary hover:!bg-secondary">
                         <ArrowLeft />
-                        Blogs
+                        Projects
                     </Button>
                 </Link>
             </div>
-            <BlogDetail blog={blogData} />
+            <ProjectDetail project={projectData} />
         </section>
     );
 };

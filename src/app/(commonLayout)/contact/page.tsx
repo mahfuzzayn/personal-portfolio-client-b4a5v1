@@ -60,8 +60,6 @@ const ContactPage = () => {
         try {
             const res = (await addMessage(messageData)) as TResponse<any>;
 
-            console.log(res);
-
             if (res.error) {
                 toast.error(res.error.data.errorSources[0].message, {
                     id: toastId,
@@ -86,15 +84,15 @@ const ContactPage = () => {
     };
 
     return (
-        <section className="min-h-screen">
-            <div className="mx-10 my-20">
+        <section className="min-h-screen px-10">
+            <div className="max-w-[1268px] my-20 mx-auto">
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
                         className="mt-10 space-y-8 text-white"
                     >
-                        <h2 className="text-white text-3xl font-bold text-center">
-                            Reach us through sending a message by filling this
+                        <h2 className="text-white text-2xl md:text-3xl font-bold text-center">
+                            Reach us through sending a <span className="text-accent">Message</span> by filling this
                             form
                         </h2>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">

@@ -6,11 +6,11 @@ import { Button } from "@/components/ui/button";
 
 const Messages = ({ messages }: { messages: TMessage[] }) => {
     return (
-        <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 m-10 gap-5 max-w-[1268px]">
+        <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 m-10 mb-20 gap-10 max-w-[1268px]">
             {messages.map((message, index: number) => (
                 <div
                     key={message._id}
-                    className="text-white bg-cyan-700 rounded-md"
+                    className="text-white bg-cyan-700 rounded-xl"
                 >
                     <div className="p-4 md:p-6 space-y-3">
                         <h2 className="text-2xl md:text-3xl font-semibold">

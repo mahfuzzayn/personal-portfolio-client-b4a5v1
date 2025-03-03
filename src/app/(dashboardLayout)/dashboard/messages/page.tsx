@@ -17,7 +17,7 @@ const DashboardMessagesPage = async () => {
                         Back to Dashboard
                     </Button>
                 </Link>
-                <h2 className="text-3xl font-semibold text-white">Blogs</h2>
+                <h2 className="text-3xl font-semibold text-white">Messages</h2>
             </div>
             <Messages messages={messagesData} />
         </>

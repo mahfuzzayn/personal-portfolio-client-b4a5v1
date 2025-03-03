@@ -152,10 +152,10 @@ const CreateBlogPage = () => {
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="mt-10 space-y-8 text-white"
+                        className="mt-10 mb-20 space-y-8 text-white"
                     >
                         <h2 className="text-white text-3xl font-bold text-center">
-                            Create a Blog by filling this form
+                            Create a <span className="text-accent">Blog</span> by filling this form
                         </h2>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                             <FormField

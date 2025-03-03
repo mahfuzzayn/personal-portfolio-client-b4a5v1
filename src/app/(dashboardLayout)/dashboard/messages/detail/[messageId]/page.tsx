@@ -14,7 +14,7 @@ export const generateMetadata = async ({
 
     const { data: messageData } = await res.json();
 
-    return { title: `${messageData?.name} ‣ Message Detail ‣ Personal Portfolio` };
+    return { title: `${messageData?.name}'s ‣ Message Detail ‣ Personal Portfolio` };
 };
 
 const DashboardBlogDetailPage = async ({ params }: { params: { messageId: string } }) => {

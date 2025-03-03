@@ -34,7 +34,7 @@ const DashboardPage = async () => {
     const { data: projectsData } = await projectsRes.json();
 
     return (
-        <section className="w-full">
+        <section className="w-full mb-20">
             <div className="m-10">
                 <Link href="/">
                     <Button className="bg-secondary hover:!bg-secondary">

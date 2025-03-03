@@ -4,11 +4,11 @@ import bannerImage from "../../assets/images/banner-1.jpg";
 import Image from "next/image";
 import { Button } from "../ui/button";
 import { ArrowUpRight, DownloadIcon } from "lucide-react";
+import Link from "next/link";
 
 const Banner = () => {
     return (
         <section className="relative w-full max-h-[768px] overflow-hidden">
-            {/* Background Image */}
             <Image
                 src={bannerImage}
                 layout="fill"
@@ -28,20 +28,27 @@ const Banner = () => {
                     something incredible together!
                 </p>
                 <div className="flex gap-x-4 mt-6">
-                    <Button
-                        type="button"
-                        className="px-6 py-5 bg-primary text-white font-semibold text-md rounded-md hover:bg-primary-dark transition-all flex gap-x-1"
+                    <Link href="/projects">
+                        <Button
+                            type="button"
+                            className="px-6 py-5 bg-primary text-white font-semibold text-md rounded-md hover:bg-primary-dark transition-all flex gap-x-1"
+                        >
+                            Projects
+                            <ArrowUpRight size={40} />
+                        </Button>
+                    </Link>
+                    <Link
+                        href="https://tinyurl.com/mahfuzzayn-resume"
+                        download="https://tinyurl.com/mahfuzzayn-resume"
                     >
-                        Projects
-                        <ArrowUpRight size={40} />
-                    </Button>
-                    <Button
-                        type="button"
-                        className="px-6 py-5 bg-secondary text-white font-semibold text-md rounded-md hover:bg-primary-dark transition-all"
-                    >
-                        Resume
-                        <DownloadIcon size={40} />
-                    </Button>
+                        <Button
+                            type="button"
+                            className="px-6 py-5 bg-secondary text-white font-semibold text-md rounded-md hover:bg-primary-dark transition-all"
+                        >
+                            Resume
+                            <DownloadIcon size={40} />
+                        </Button>
+                    </Link>
                 </div>
             </div>
         </section>

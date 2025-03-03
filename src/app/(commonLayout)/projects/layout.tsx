@@ -2,13 +2,13 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-    title: "Contact ‣ Personal Portfolio",
+    title: "Projects ‣ Personal Portfolio",
 };
 
-const ContactPageLayout = ({
+const ProjectsPageLayout = ({
     children,
 }: Readonly<{ children: React.ReactNode }>) => {
     return <>{children}</>;
 };
 
-export default ContactPageLayout;
+export default ProjectsPageLayout;

@@ -25,7 +25,7 @@ const BlogDetail = ({ blog }: { blog: TBlog }) => {
             )}
             <div className="text-gray-200 mt-10 text-lg space-y-4">
                 <p className="font-bold">
-                    Title: <span className="font-normal">{blog.title}</span>
+                    Blog<span className="ml-2 text-2xl md:text-3xl text-accent font-bold">{blog.title}</span>
                 </p>
                 <p className="font-bold">
                     Author:{" "}
@@ -42,7 +42,7 @@ const BlogDetail = ({ blog }: { blog: TBlog }) => {
                         {blog.category}
                     </span>
                 </p>
-                <p className="font-bold">
+                <p className="font-bold !mt-10">
                     Posted on:{" "}
                     <span className="font-normal">
                         {moment(blog?.createdAt).format(

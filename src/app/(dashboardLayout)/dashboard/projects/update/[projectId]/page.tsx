@@ -29,6 +29,11 @@ import {
     useGetSingleProjectQuery,
     useUpdateProjectMutation,
 } from "@/redux/features/project/project.api";
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 const formSchema = z.object({
     title: z.string().optional(),
@@ -161,7 +166,7 @@ const UpdateProjectPage = () => {
 
     return (
         <>
-            <div className="m-10">
+            <div className="m-10 pb-20">
                 <Link
                     href={`/dashboard/projects/detail/${projectData?.data?._id}`}
                 >
@@ -170,175 +175,209 @@ const UpdateProjectPage = () => {
                         Back to Project
                     </Button>
                 </Link>
-                <Form {...form}>
-                    <form
-                        onSubmit={form.handleSubmit(onSubmit)}
-                        className="mt-10 space-y-8 text-white"
-                    >
-                        <h2 className="text-white text-3xl font-bold text-center">
-                            Update Project:{" "}
-                            <span className="text-accent">
-                                {projectData?.data?.title}
-                            </span>
-                        </h2>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-                            <FormField
-                                control={form.control}
-                                name="title"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Title</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Write a Title"
-                                                className="bg-secondary placeholder:text-gray-200"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="creator"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Creator</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                placeholder="What is your name?"
-                                                className="bg-secondary placeholder:text-gray-200"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="description"
-                                render={({ field }) => (
-                                    <FormItem>
-                                        <FormLabel>Description</FormLabel>
-                                        <FormControl>
-                                            <Textarea
-                                                placeholder="Write a brief detail..."
-                                                className="bg-secondary placeholder:text-gray-200"
-                                                {...field}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <FormField
-                                control={form.control}
-                                name="images"
-                                render={({
-                                    field: { onChange, value, ref, ...rest },
-                                }) => (
-                                    <FormItem>
-                                        <FormLabel>Images</FormLabel>
-                                        <FormControl>
-                                            <Input
-                                                placeholder="Select images"
-                                                type="file"
-                                                multiple
-                                                ref={(e) => {
-                                                    fileInputRef.current = e;
-                                                    ref(e);
-                                                }}
-                                                value={value?.fileName}
-                                                onChange={(e) => {
-                                                    if (
-                                                        e.target.files?.length
-                                                    ) {
-                                                        onChange(
-                                                            e.target.files
-                                                        );
-                                                    }
-                                                }}
-                                                className="bg-secondary placeholder:text-gray-200"
-                                                {...rest}
-                                            />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                            />
-                            <div className="space-y-2">
-                                <h3 className="text-xl font-semibold">Links</h3>
-                                {fields.map((field: any, index) => (
-                                    <div
-                                        key={field.id}
-                                        className="flex flex-col md:flex-row gap-4 items-start md:items-center"
-                                    >
-                                        <FormField
-                                            control={form.control}
-                                            name={`links.${index}.label`}
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel>Label</FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            placeholder="GitHub, Live Demo, etc."
-                                                            className="bg-secondary placeholder:text-gray-200"
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                        <FormField
-                                            control={form.control}
-                                            name={`links.${index}.href`}
-                                            render={({ field }) => (
-                                                <FormItem>
-                                                    <FormLabel>URL</FormLabel>
-                                                    <FormControl>
-                                                        <Input
-                                                            placeholder="https://example.com"
-                                                            className="bg-secondary placeholder:text-gray-200"
-                                                            {...field}
-                                                        />
-                                                    </FormControl>
-                                                    <FormMessage />
-                                                </FormItem>
-                                            )}
-                                        />
-                                        {fields.length > 1 && (
-                                            <Button
-                                                type="button"
-                                                className="mt-auto !bg-muted hover:!bg-muted"
-                                                onClick={() => remove(index)}
-                                            >
-                                                <Trash2 size={16} />
-                                            </Button>
-                                        )}
-                                    </div>
-                                ))}
-                                <Button
-                                    type="button"
-                                    className="bg-destructive hover:!bg-destructive p-2 !py-1 !mt-5"
-                                    onClick={() =>
-                                        append({ label: "", href: "" })
-                                    }
-                                >
-                                    <PlusIcon />
-                                </Button>
-                            </div>
-                        </div>
-                        <Button
-                            type="submit"
-                            className="bg-muted hover:!bg-muted"
+                <div className="max-w-[1268px]">
+                    <Form {...form}>
+                        <form
+                            onSubmit={form.handleSubmit(onSubmit)}
+                            className="mt-10 space-y-8 text-white"
                         >
-                            Submit
-                        </Button>
-                    </form>
-                </Form>
+                            <h2 className="text-white text-2xl md:text-3xl font-bold text-center">
+                                Update Project:{" "}
+                                <span className="text-accent">
+                                    {projectData?.data?.title}
+                                </span>
+                            </h2>
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 !mb-5">
+                                <FormField
+                                    control={form.control}
+                                    name="title"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Title</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    placeholder="Write a Title"
+                                                    className="bg-secondary placeholder:text-gray-200"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="creator"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Creator</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    placeholder="What is your name?"
+                                                    className="bg-secondary placeholder:text-gray-200"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="description"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Description</FormLabel>
+                                            <FormControl>
+                                                <Textarea
+                                                    placeholder="Write a brief detail..."
+                                                    className="bg-secondary placeholder:text-gray-200"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <FormField
+                                    control={form.control}
+                                    name="images"
+                                    render={({
+                                        field: {
+                                            onChange,
+                                            value,
+                                            ref,
+                                            ...rest
+                                        },
+                                    }) => (
+                                        <FormItem>
+                                            <FormLabel>Images</FormLabel>
+                                            <FormControl>
+                                                <Input
+                                                    placeholder="Select images"
+                                                    type="file"
+                                                    multiple
+                                                    ref={(e) => {
+                                                        fileInputRef.current =
+                                                            e;
+                                                        ref(e);
+                                                    }}
+                                                    value={value?.fileName}
+                                                    onChange={(e) => {
+                                                        if (
+                                                            e.target.files
+                                                                ?.length
+                                                        ) {
+                                                            onChange(
+                                                                e.target.files
+                                                            );
+                                                        }
+                                                    }}
+                                                    className="bg-secondary placeholder:text-gray-200"
+                                                    {...rest}
+                                                />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                                <div className="space-y-2">
+                                    <h3 className="text-xl font-semibold">
+                                        Links
+                                    </h3>
+                                    {fields.map((field: any, index) => (
+                                        <div
+                                            key={field.id}
+                                            className="flex flex-col md:flex-row gap-4 items-start md:items-center"
+                                        >
+                                            <FormField
+                                                control={form.control}
+                                                name={`links.${index}.label`}
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>
+                                                            Label
+                                                        </FormLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                placeholder="GitHub, Live Demo, etc."
+                                                                className="bg-secondary placeholder:text-gray-200"
+                                                                {...field}
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            <FormField
+                                                control={form.control}
+                                                name={`links.${index}.href`}
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        <FormLabel>
+                                                            URL
+                                                        </FormLabel>
+                                                        <FormControl>
+                                                            <Input
+                                                                placeholder="https://example.com"
+                                                                className="bg-secondary placeholder:text-gray-200"
+                                                                {...field}
+                                                            />
+                                                        </FormControl>
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                            {fields.length > 1 && (
+                                                <Tooltip>
+                                                    <TooltipTrigger asChild>
+                                                        <Button
+                                                            type="button"
+                                                            className="mt-auto !bg-muted hover:!bg-muted"
+                                                            onClick={() =>
+                                                                remove(index)
+                                                            }
+                                                        >
+                                                            <Trash2 size={16} />
+                                                        </Button>
+                                                    </TooltipTrigger>
+                                                    <TooltipContent className="bg-destructive">
+                                                        Delete Link
+                                                    </TooltipContent>
+                                                </Tooltip>
+                                            )}
+                                        </div>
+                                    ))}
+                                    <Tooltip>
+                                        <TooltipTrigger asChild>
+                                            <button
+                                                type="button"
+                                                className="bg-destructive hover:!bg-destructive p-2 py-1.5 !mt-5 rounded-md"
+                                                onClick={() =>
+                                                    append({
+                                                        label: "",
+                                                        href: "",
+                                                    })
+                                                }
+                                            >
+                                                <PlusIcon />
+                                            </button>
+                                        </TooltipTrigger>
+                                        <TooltipContent className="bg-secondary">
+                                            Add Link
+                                        </TooltipContent>
+                                    </Tooltip>
+                                </div>
+                            </div>
+                            <Button
+                                type="submit"
+                                className="bg-muted hover:!bg-muted"
+                            >
+                                Submit
+                            </Button>
+                        </form>
+                    </Form>
+                </div>
             </div>
         </>
     );
