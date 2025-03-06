@@ -10,6 +10,7 @@ import {
     SidebarMenuItem,
 } from "../ui/sidebar";
 import { BookIcon, Inbox, MessageSquareIcon } from "lucide-react";
+import { ModeToggle } from "./ModeToggle";
 
 const items = [
     {
@@ -32,7 +33,7 @@ const items = [
 const PPSidebar = () => {
     return (
         <Sidebar>
-            <SidebarContent className="!bg-secondary !text-white">
+            <SidebarContent className="!bg-primary !text-white">
                 <SidebarGroup>
                     <SidebarGroupLabel className="!text-white">
                         Manage
@@ -49,6 +50,9 @@ const PPSidebar = () => {
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}
+                            <div className="mx-auto mt-5">
+                                <ModeToggle />
+                            </div>
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>

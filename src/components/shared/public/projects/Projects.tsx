@@ -10,7 +10,7 @@ const Projects = ({ projects }: { projects: TProject[] }) => {
             {projects.map((project, index) => (
                 <div
                     key={project._id}
-                    className="text-white bg-cyan-700 rounded-xl"
+                    className="text-white bg-muted rounded-xl"
                 >
                     <div className="p-4 md:p-6 md:pb-2 space-y-3">
                         <h2 className="text-2xl md:text-3xl font-semibold">
@@ -30,7 +30,7 @@ const Projects = ({ projects }: { projects: TProject[] }) => {
                                     <Link
                                         href={`${link.href}`}
                                         target="_blank"
-                                        className="text-secondary bg-white px-2 py-1 rounded-md flex gap-x-1"
+                                        className="text-foreground bg-background hover:text-destructive transition-colors px-2 py-1 rounded-md flex gap-x-1"
                                     >
                                         {link.label}
                                         <ArrowUpRight size={16} />
@@ -47,7 +47,7 @@ const Projects = ({ projects }: { projects: TProject[] }) => {
                     </div>
                     <div className="px-4 md:px-6 flex flex-wrap gap-4 mt-2">
                         <Link href={`/projects/${project?._id}`}>
-                            <Button className="!bg-muted">
+                            <Button className="!bg-primary text-white">
                                 Explore Project
                             </Button>
                         </Link>

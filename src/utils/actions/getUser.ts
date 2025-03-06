@@ -1,16 +1,11 @@
-"use server"
+"use server";
 
-type UserData = {
-    email: string;
-}
-
-export const getUser = async (data: UserData) => {
-    const res = await fetch(`${process.env.BACKEND_URL}/users`, {
-        method: "POST",
+export const getUser = async (email: string) => {
+    const res = await fetch(`${process.env.BACKEND_URL}/users/${email}`, {
+        method: "GET",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
         cache: "no-store",
     });
 

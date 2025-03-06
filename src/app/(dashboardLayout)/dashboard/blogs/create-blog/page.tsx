@@ -144,7 +144,7 @@ const CreateBlogPage = () => {
         <>
             <div className="m-10">
                 <Link href="/dashboard/blogs">
-                    <Button className="bg-secondary hover:!bg-secondary">
+                    <Button className="bg-accent text-white hover:!bg-accent">
                         <ArrowLeft />
                         Blogs
                     </Button>
@@ -152,10 +152,12 @@ const CreateBlogPage = () => {
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="mt-10 mb-20 space-y-8 text-white"
+                        className="mt-10 mb-20 space-y-8 text-foreground"
                     >
-                        <h2 className="text-white text-3xl font-bold text-center">
-                            Create a <span className="text-accent">Blog</span> by filling this form
+                        <h2 className="text-foreground text-3xl font-bold text-center">
+                            Create a{" "}
+                            <span className="text-destructive">Blog</span> by
+                            filling this form
                         </h2>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
                             <FormField
@@ -167,7 +169,7 @@ const CreateBlogPage = () => {
                                         <FormControl>
                                             <Input
                                                 placeholder="Write a Title"
-                                                className="bg-secondary placeholder:text-gray-200"
+                                                className="bg-muted text-white placeholder:text-primary"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -184,7 +186,7 @@ const CreateBlogPage = () => {
                                         <FormControl>
                                             <Input
                                                 placeholder="What is your name?"
-                                                className="bg-secondary placeholder:text-gray-200"
+                                                className="bg-muted text-white placeholder:text-primary"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -201,7 +203,7 @@ const CreateBlogPage = () => {
                                         <FormControl>
                                             <Textarea
                                                 placeholder="Write a brief detail..."
-                                                className="bg-secondary placeholder:text-gray-200"
+                                                className="bg-muted text-white placeholder:text-primary"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -235,7 +237,7 @@ const CreateBlogPage = () => {
                                                         );
                                                     }
                                                 }}
-                                                className="bg-secondary placeholder:text-gray-200"
+                                                className="bg-muted text-white placeholder:text-primary"
                                                 {...rest}
                                             />
                                         </FormControl>
@@ -254,10 +256,9 @@ const CreateBlogPage = () => {
                                                 onValueChange={field.onChange}
                                                 defaultValue={field.value}
                                             >
-                                                <SelectTrigger className="w-[180px] bg-secondary placeholder:!text-gray-300">
+                                                <SelectTrigger className="w-[180px] bg-muted text-white placeholder:text-primary">
                                                     <SelectValue
                                                         placeholder="Select a category"
-                                                        className=""
                                                         {...field}
                                                     />
                                                 </SelectTrigger>
@@ -290,7 +291,7 @@ const CreateBlogPage = () => {
                         </div>
                         <Button
                             type="submit"
-                            className="bg-muted hover:!bg-muted"
+                            className="bg-destructive text-white hover:!bg-destructive"
                         >
                             Submit
                         </Button>

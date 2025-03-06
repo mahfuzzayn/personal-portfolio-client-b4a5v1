@@ -91,11 +91,12 @@ const ContactPage = () => {
                         onSubmit={form.handleSubmit(onSubmit)}
                         className="mt-10 space-y-8 text-white"
                     >
-                        <h2 className="text-white text-2xl md:text-3xl font-bold text-center">
-                            Reach us through sending a <span className="text-accent">Message</span> by filling this
-                            form
+                        <h2 className="text-foreground text-2xl md:text-3xl font-bold text-center">
+                            Reach us through sending a{" "}
+                            <span className="text-destructive">Message</span> by
+                            filling this form
                         </h2>
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 text-foreground">
                             <FormField
                                 control={form.control}
                                 name="name"
@@ -105,7 +106,7 @@ const ContactPage = () => {
                                         <FormControl>
                                             <Input
                                                 placeholder="What is your name?"
-                                                className="bg-secondary placeholder:text-gray-200"
+                                                className="bg-secondary placeholder:text-primary"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -122,7 +123,7 @@ const ContactPage = () => {
                                         <FormControl>
                                             <Input
                                                 placeholder="What is your email?"
-                                                className="bg-secondary placeholder:text-gray-200"
+                                                className="bg-secondary placeholder:text-primary"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -139,7 +140,7 @@ const ContactPage = () => {
                                         <FormControl>
                                             <Textarea
                                                 placeholder="Write a brief message..."
-                                                className="bg-secondary placeholder:text-gray-200"
+                                                className="bg-secondary placeholder:text-primary"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -150,7 +151,7 @@ const ContactPage = () => {
                         </div>
                         <Button
                             type="submit"
-                            className="bg-muted hover:!bg-muted"
+                            className="bg-muted hover:!bg-muted text-white"
                         >
                             Submit
                         </Button>

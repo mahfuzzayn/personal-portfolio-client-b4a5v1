@@ -12,7 +12,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 import { useForm } from "react-hook-form";
@@ -38,6 +38,7 @@ import { toast } from "sonner";
 import { toastStyles } from "@/constants/toaster";
 import { TResponse } from "@/types";
 import { useParams, useRouter } from "next/navigation";
+import { Spinner } from "@/components/shared/Spinner";
 
 const formSchema = z.object({
     title: z.string().optional(),
@@ -79,7 +80,11 @@ const UpdateBlogPage = () => {
         }
     );
 
-    const { data: blogData } = useGetSingleBlogQuery({
+    const {
+        data: blogData,
+        isLoading,
+        isFetching,
+    } = useGetSingleBlogQuery({
         _id: params.blogId,
     });
 
@@ -151,23 +156,59 @@ const UpdateBlogPage = () => {
         }
     };
 
+    if (isLoading || isFetching) {
+        return (
+            <div className="flex gap-y-5 min-h-screen text-white justify-center items-center text-center mx-5">
+                <Spinner />
+            </div>
+        );
+    }
+
+    if (!blogData) {
+        return (
+            <div className="flex flex-col gap-y-5 min-h-screen text-white justify-center items-center text-center">
+                <h2 className="text-2xl md:text-3xl font-bold">
+                    Failed to load{" "}
+                    <span className="text-destructive">blog</span> detail
+                </h2>
+                <p>Blog ID: {params.blogId}</p>
+                <Link href="/dashboard/blogs">
+                    <Button className="bg-secondary hover:!bg-secondary">
+                        <ArrowLeft />
+                        Blogs
+                    </Button>
+                </Link>
+            </div>
+        );
+    }
+
     return (
         <>
             <div className="m-10 mb-20">
-                <Link href={`/dashboard/blogs/detail/${blogData?.data?._id}`}>
-                    <Button className="bg-secondary hover:!bg-secondary">
-                        <ArrowLeft />
-                        Back to Blog
-                    </Button>
-                </Link>
+                <div className="flex flex-col md:flex-row justify-start items-start gap-x-3 gap-y-4">
+                    <Link
+                        href={`/dashboard/blogs/detail/${blogData?.data?._id}`}
+                    >
+                        <Button className="bg-accent text-white hover:!bg-accent">
+                            <ArrowLeft />
+                            Back to Blog
+                        </Button>
+                    </Link>
+                    <Link href={`/dashboard/blogs`}>
+                        <Button className="bg-muted text-white hover:!bg-muted">
+                            Blogs
+                            <ArrowUpRight />
+                        </Button>
+                    </Link>
+                </div>
                 <Form {...form}>
                     <form
                         onSubmit={form.handleSubmit(onSubmit)}
-                        className="mt-10 space-y-8 text-white"
+                        className="mt-10 space-y-8"
                     >
-                        <h2 className="text-white text-3xl font-bold text-center">
+                        <h2 className="text-foreground text-3xl font-bold text-center">
                             Update Blog:{" "}
-                            <span className="text-accent">
+                            <span className="text-destructive">
                                 {blogData?.data?.title}
                             </span>
                         </h2>
@@ -181,7 +222,7 @@ const UpdateBlogPage = () => {
                                         <FormControl>
                                             <Input
                                                 placeholder="Write a Title"
-                                                className="bg-secondary placeholder:text-gray-200"
+                                                className="bg-muted text-white placeholder:text-primary"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -198,7 +239,7 @@ const UpdateBlogPage = () => {
                                         <FormControl>
                                             <Input
                                                 placeholder="What is your name?"
-                                                className="bg-secondary placeholder:text-gray-200"
+                                                className="bg-muted text-white placeholder:text-primary"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -215,7 +256,7 @@ const UpdateBlogPage = () => {
                                         <FormControl>
                                             <Textarea
                                                 placeholder="Write a brief detail..."
-                                                className="bg-secondary placeholder:text-gray-200"
+                                                className="bg-muted text-white placeholder:text-primary"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -249,7 +290,7 @@ const UpdateBlogPage = () => {
                                                         );
                                                     }
                                                 }}
-                                                className="bg-secondary placeholder:text-gray-200"
+                                                className="bg-muted text-white placeholder:text-primary"
                                                 {...rest}
                                             />
                                         </FormControl>
@@ -268,10 +309,9 @@ const UpdateBlogPage = () => {
                                                 onValueChange={field.onChange}
                                                 value={field.value}
                                             >
-                                                <SelectTrigger className="w-[180px] bg-secondary placeholder:!text-gray-300">
+                                                <SelectTrigger className="w-[180px] bg-muted text-white placeholder:text-white">
                                                     <SelectValue
                                                         placeholder="Select a category"
-                                                        className=""
                                                         {...field}
                                                     />
                                                 </SelectTrigger>
@@ -304,7 +344,7 @@ const UpdateBlogPage = () => {
                         </div>
                         <Button
                             type="submit"
-                            className="bg-muted hover:!bg-muted"
+                            className="bg-destructive text-white hover:!bg-destructive"
                         >
                             Submit
                         </Button>

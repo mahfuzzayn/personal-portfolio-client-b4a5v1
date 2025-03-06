@@ -5,13 +5,13 @@ import Link from "next/link";
 const MessageDetail = ({ message }: { message: TMessage }) => {
     return (
         <section className="m-10">
-            <h2 className="text-white text-2xl md:text-3xl font-bold">
-                Message by <span className="text-accent">{message.name}</span>
+            <h2 className="text-foreground text-2xl md:text-3xl font-bold">
+                Message by <span className="text-destructive">{message.name}</span>
             </h2>
-            <div className="text-gray-200 mt-10 text-lg space-y-4">
+            <div className="text-foreground mt-10 text-lg space-y-4">
                 <p className="font-bold">
                     Sender name:{" "}
-                    <span className="font-normal text-accent">
+                    <span className="font-normal text-destructive">
                         {message.name}
                     </span>
                 </p>

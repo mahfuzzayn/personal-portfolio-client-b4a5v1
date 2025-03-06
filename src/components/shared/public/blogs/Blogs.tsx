@@ -9,7 +9,7 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
             {blogs.map((blog, index) => (
                 <div
                     key={blog._id}
-                    className="text-white bg-cyan-700 rounded-xl"
+                    className="text-white bg-muted rounded-xl"
                 >
                     <div className="p-4 md:p-6 md:pb-2 space-y-3">
                         <h2 className="text-2xl md:text-3xl font-semibold">
@@ -32,7 +32,7 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
                     </div>
                     <div className="px-4 md:px-6 flex flex-wrap gap-4 mt-2">
                         <Link href={`/blogs/${blog?._id}`}>
-                            <Button className="!bg-muted">Read More</Button>
+                            <Button className="!bg-primary text-white">Read More</Button>
                         </Link>
                     </div>
                     <p className="text-xs text-gray-300 text-right mr-4 mb-2">

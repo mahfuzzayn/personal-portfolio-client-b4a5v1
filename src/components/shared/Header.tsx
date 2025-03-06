@@ -14,6 +14,7 @@ import {
 import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
+import { ModeToggle } from "./ModeToggle";
 
 type UserProps = {
     user?: {
@@ -63,11 +64,11 @@ const Header = () => {
     return (
         <header
             ref={menuRef}
-            className={`flex flex-col md:flex-row md:justify-between md:items-center py-5 px-10 bg-secondary text-white relative transition-all overflow-hidden ${
+            className={`flex flex-col md:flex-row md:justify-between md:items-center py-5 px-10 bg-primary text-white relative transition-all overflow-hidden ${
                 isMenuOpen && session?.user
-                    ? "h-[290px]"
+                    ? "h-[340px]"
                     : isMenuOpen
-                    ? "h-[260px]"
+                    ? "h-[310px]"
                     : "h-[80px]"
             }`}
         >
@@ -77,11 +78,11 @@ const Header = () => {
                 </h2>
             </Link>
             <nav className="hidden md:block">
-                <ul className="flex gap-x-5">
+                <ul className="flex items-center gap-x-5">
                     <li>
                         <Link
                             href="/"
-                            className="hover:text-primary transition-colors"
+                            className="hover:text-muted transition-colors"
                         >
                             Home
                         </Link>
@@ -89,7 +90,7 @@ const Header = () => {
                     <li>
                         <Link
                             href="/projects"
-                            className="hover:text-primary transition-colors"
+                            className="hover:text-muted transition-colors"
                         >
                             Projects
                         </Link>
@@ -97,7 +98,7 @@ const Header = () => {
                     <li>
                         <Link
                             href="/blogs"
-                            className="hover:text-primary transition-colors"
+                            className="hover:text-muted transition-colors"
                         >
                             Blogs
                         </Link>
@@ -105,7 +106,7 @@ const Header = () => {
                     <li>
                         <Link
                             href="/contact"
-                            className="hover:text-primary transition-colors"
+                            className="hover:text-muted transition-colors"
                         >
                             Contact
                         </Link>
@@ -114,7 +115,7 @@ const Header = () => {
                         <li>
                             <Link
                                 href="/login"
-                                className="hover:text-primary transition-colors"
+                                className="hover:text-muted transition-colors"
                             >
                                 Login
                             </Link>
@@ -124,7 +125,7 @@ const Header = () => {
                             <li>
                                 <Link
                                     href="/dashboard"
-                                    className="hover:text-primary transition-colors"
+                                    className="hover:text-muted transition-colors"
                                 >
                                     Dashboard
                                 </Link>
@@ -132,13 +133,16 @@ const Header = () => {
                             <li>
                                 <button
                                     onClick={() => signOut()}
-                                    className="hover:text-primary transition-colors"
+                                    className="hover:text-muted transition-colors"
                                 >
                                     Logout
                                 </button>
                             </li>
                         </>
                     )}
+                    <li>
+                        <ModeToggle />
+                    </li>
                 </ul>
             </nav>
             <nav className={`${isMenuOpen ? "block" : "hidden"}`}>
@@ -222,6 +226,9 @@ const Header = () => {
                             </li>
                         </>
                     )}
+                    <li className="mt-2">
+                        <ModeToggle />
+                    </li>
                 </ul>
             </nav>
             <div className="md:hidden absolute top-[25px] right-10">

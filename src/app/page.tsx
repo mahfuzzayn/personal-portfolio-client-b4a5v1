@@ -11,6 +11,7 @@ const HomePage = async () => {
             revalidate: 60,
         },
     });
+
     const { data: projectsData } = await projectsRes.json();
 
     return (

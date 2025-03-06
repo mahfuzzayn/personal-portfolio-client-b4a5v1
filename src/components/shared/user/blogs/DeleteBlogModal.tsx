@@ -61,14 +61,14 @@ const DeleteBlogModal = ({ blog }: { blog: TBlog }) => {
     return (
         <AlertDialog open={open} onOpenChange={setOpen}>
             <AlertDialogTrigger asChild>
-                <Button className="!bg-muted">Delete Blog</Button>
+                <Button className="!bg-primary text-white">Delete Blog</Button>
             </AlertDialogTrigger>
             <AlertDialogContent className="!bg-accent border-none text-white">
                 <AlertDialogHeader>
                     <AlertDialogTitle className="text-2xl">
                         Are you sure?
                     </AlertDialogTitle>
-                    <AlertDialogDescription>
+                    <AlertDialogDescription className="text-secondary">
                         This action cannot be undone. This will permanently
                         delete your blog.
                     </AlertDialogDescription>
@@ -82,7 +82,7 @@ const DeleteBlogModal = ({ blog }: { blog: TBlog }) => {
                     </AlertDialogCancel>
                     <AlertDialogAction
                         onClick={handleDelete}
-                        className="!bg-primary"
+                        className="!bg-primary text-white"
                     >
                         Delete
                     </AlertDialogAction>

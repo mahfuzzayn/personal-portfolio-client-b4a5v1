@@ -19,9 +19,9 @@ import "swiper/css/pagination";
 const ProjectDetail = ({ project }: { project: TProject }) => {
     return (
         <section className="m-10 pb-20">
-            <h2 className="text-white text-2xl md:text-3xl font-bold">
+            <h2 className="text-foreground text-2xl md:text-3xl font-bold">
                 Project Details of{" "}
-                <span className="text-accent">{project.title}</span>
+                <span className="text-destructive">{project.title}</span>
             </h2>
             <Swiper
                 navigation
@@ -41,16 +41,16 @@ const ProjectDetail = ({ project }: { project: TProject }) => {
                     </SwiperSlide>
                 ))}
             </Swiper>
-            <div className="text-gray-200 mt-5 text-lg space-y-4">
+            <div className="text-foreground mt-5 text-lg space-y-4">
                 <p className="font-bold">
                     Project
-                    <span className="ml-2 text-2xl md:text-3xl text-accent font-bold">
+                    <span className="ml-2 text-2xl md:text-3xl text-destructive font-bold">
                         {project.title}
                     </span>
                 </p>
                 <p className="font-bold">
                     Creator:{" "}
-                    <span className="font-normal text-accent">
+                    <span className="font-normal text-destructive">
                         {project.creator.name}
                     </span>
                 </p>
@@ -81,7 +81,7 @@ const ProjectDetail = ({ project }: { project: TProject }) => {
                         <li key={index}>
                             <Link
                                 href={`${link.href}`}
-                                className="text-secondary bg-white px-2 py-1 rounded-md flex gap-x-1"
+                                className="text-background bg-foreground hover:text-destructive transition-colors px-2 py-1 rounded-md flex gap-x-1"
                             >
                                 {link.label}
                                 <ArrowUpRight size={16} />
@@ -90,7 +90,7 @@ const ProjectDetail = ({ project }: { project: TProject }) => {
                     ))}
                 </ul>
                 <Link href={`/dashboard/projects/update/${project._id}`}>
-                    <Button className="!bg-muted !mt-10">
+                    <Button className="!bg-destructive text-white !mt-10">
                         Update this project <ArrowRight />
                     </Button>
                 </Link>

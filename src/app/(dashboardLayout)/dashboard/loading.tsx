@@ -14,7 +14,7 @@ const DashboardLoadingPage = async () => {
         <section className="w-full">
             <div className="m-10">
                 <Link href="/">
-                    <Button className="bg-secondary hover:!bg-secondary">
+                    <Button className="bg-accent text-white hover:!bg-accent">
                         <ArrowLeft />
                         Back to Home
                     </Button>
@@ -26,22 +26,22 @@ const DashboardLoadingPage = async () => {
                     <div className="bg-muted text-white p-4 rounded-md">
                         <h2 className="text-xl mb-2">Total Blogs</h2>
                         <div className="flex items-center gap-x-2 font-semibold">
-                            <BookIcon />
-                            <Skeleton className="h-8 w-[32px] !bg-destructive" />
+                            <BookIcon className="h-7 w-7" />
+                            <Skeleton className="h-8 w-full !bg-secondary" />
                         </div>
                     </div>
                     <div className="bg-muted text-white p-4 rounded-md">
                         <h2 className="text-xl mb-2">Total Projects</h2>
                         <div className="flex items-center gap-x-2 font-semibold">
-                            <InboxIcon />
-                            <Skeleton className="h-8 w-[32px] !bg-destructive" />
+                            <InboxIcon className="h-7 w-7" />
+                            <Skeleton className="h-8 w-full !bg-secondary" />
                         </div>
                     </div>
                     <div className="bg-muted text-white p-4 rounded-md">
                         <h2 className="text-xl mb-2">Total Messages</h2>
                         <div className="flex items-center gap-x-2 font-semibold">
-                            <MessageSquareIcon />
-                            <Skeleton className="h-8 w-[32px] !bg-destructive" />
+                            <MessageSquareIcon className="h-7 w-7" />
+                            <Skeleton className="h-8 w-full !bg-secondary" />
                         </div>
                     </div>
                 </div>

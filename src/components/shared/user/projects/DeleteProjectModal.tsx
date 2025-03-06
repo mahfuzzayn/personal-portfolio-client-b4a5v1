@@ -30,9 +30,7 @@ const DeleteProjectModal = ({ project }: { project: TProject }) => {
         const toastId = toast.loading("Deleting project...", {
             style: toastStyles.loading,
         });
-
-        console.log(project);
-
+        
         try {
             const res = (await deleteProject({
                 projectId: project?._id,
@@ -62,14 +60,14 @@ const DeleteProjectModal = ({ project }: { project: TProject }) => {
     return (
         <AlertDialog open={open} onOpenChange={setOpen}>
             <AlertDialogTrigger asChild>
-                <Button className="!bg-muted">Delete Project</Button>
+                <Button className="!bg-primary text-white">Delete Project</Button>
             </AlertDialogTrigger>
             <AlertDialogContent className="!bg-accent border-none text-white">
                 <AlertDialogHeader>
                     <AlertDialogTitle className="text-2xl">
                         Are you sure?
                     </AlertDialogTitle>
-                    <AlertDialogDescription>
+                    <AlertDialogDescription className="text-secondary">
                         This action cannot be undone. This will permanently
                         delete your project.
                     </AlertDialogDescription>
@@ -83,7 +81,7 @@ const DeleteProjectModal = ({ project }: { project: TProject }) => {
                     </AlertDialogCancel>
                     <AlertDialogAction
                         onClick={handleDelete}
-                        className="!bg-primary"
+                        className="!bg-primary text-white"
                     >
                         Delete
                     </AlertDialogAction>

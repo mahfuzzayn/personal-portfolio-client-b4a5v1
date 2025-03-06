@@ -11,7 +11,11 @@ export const generateMetadata = async ({
 
     const { data: projectData } = await res.json();
 
-    return { title: `Update ‣ ${projectData?.title} ‣ Project ‣ Personal Portfolio` };
+    return {
+        title: `Update ‣ ${
+            projectData?.title ? projectData?.title : "404"
+        } ‣ Project ‣ Personal Portfolio`,
+    };
 };
 
 const UpdateProjectPageLayout = ({

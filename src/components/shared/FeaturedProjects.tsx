@@ -7,14 +7,14 @@ import { ArrowUpRight } from "lucide-react";
 const FeaturedProjects = ({ projects }: { projects: TProject[] }) => {
     return (
         <section className="py-12 px-8 md:px-16 mt-10">
-            <h2 className="text-white text-3xl md:text-4xl font-extrabold text-center mb-10">
+            <h2 className="text-foreground text-3xl md:text-4xl font-extrabold text-center mb-10">
                 Featured Projects
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-10 gap-10 max-w-[1268px] mx-auto">
-                {projects.map((project) => (
+                {projects.slice(0, 6).map((project) => (
                     <div
                         key={project._id}
-                        className="text-white bg-cyan-700 rounded-xl"
+                        className="text-white bg-muted rounded-xl"
                     >
                         <div className="p-4 md:p-6 md:pb-2 space-y-3">
                             <h2 className="text-2xl md:text-3xl font-semibold">
@@ -36,7 +36,7 @@ const FeaturedProjects = ({ projects }: { projects: TProject[] }) => {
                                         <Link
                                             href={`${link.href}`}
                                             target="_blank"
-                                            className="text-secondary bg-white px-2 py-1 rounded-md flex gap-x-1"
+                                            className="text-foreground bg-background px-2 py-1 rounded-md flex gap-x-1"
                                         >
                                             {link.label}
                                             <ArrowUpRight size={16} />
@@ -55,7 +55,7 @@ const FeaturedProjects = ({ projects }: { projects: TProject[] }) => {
                         </div>
                         <div className="px-4 md:px-6 pb-6 flex flex-wrap gap-4 mt-2">
                             <Link href={`/projects/${project?._id}`}>
-                                <Button className="!bg-muted">
+                                <Button className="!bg-primary text-white">
                                     Explore Project
                                 </Button>
                             </Link>

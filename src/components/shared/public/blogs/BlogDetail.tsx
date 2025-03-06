@@ -7,8 +7,8 @@ import { validateImage } from "@/utils/validators/image";
 const BlogDetail = ({ blog }: { blog: TBlog }) => {
     return (
         <section className="m-10">
-            <h2 className="text-white text-2xl md:text-3xl font-bold">
-                Details of <span className="text-accent">{blog.title}</span>
+            <h2 className="text-foreground text-2xl md:text-3xl font-bold">
+                Details of <span className="text-destructive">{blog.title}</span>
             </h2>
             {validateImage(blog.image).then((validate) =>
                 validate ? (
@@ -23,13 +23,13 @@ const BlogDetail = ({ blog }: { blog: TBlog }) => {
                     </div>
                 ) : null
             )}
-            <div className="text-gray-200 mt-10 text-lg space-y-4">
+            <div className="text-foreground mt-10 text-lg space-y-4">
                 <p className="font-bold">
-                    Blog<span className="ml-2 text-2xl md:text-3xl text-accent font-bold">{blog.title}</span>
+                    Blog<span className="ml-2 text-2xl md:text-3xl text-destructive font-bold">{blog.title}</span>
                 </p>
                 <p className="font-bold">
                     Author:{" "}
-                    <span className="font-normal text-accent">
+                    <span className="font-normal text-destructive">
                         {blog.author.name}
                     </span>
                 </p>
@@ -38,7 +38,7 @@ const BlogDetail = ({ blog }: { blog: TBlog }) => {
                 </p>
                 <p className="font-bold">
                     Category:{" "}
-                    <span className="font-normal text-destructive">
+                    <span className="font-normal text-muted">
                         {blog.category}
                     </span>
                 </p>

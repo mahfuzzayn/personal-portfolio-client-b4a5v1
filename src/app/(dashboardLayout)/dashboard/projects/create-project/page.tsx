@@ -150,7 +150,7 @@ const CreateProjectPage = () => {
         <>
             <div className="m-10 pb-20">
                 <Link href="/dashboard/projects">
-                    <Button className="bg-secondary hover:!bg-secondary">
+                    <Button className="bg-accent text-white hover:!bg-accent">
                         <ArrowLeft />
                         Projects
                     </Button>
@@ -161,12 +161,12 @@ const CreateProjectPage = () => {
                             onSubmit={form.handleSubmit(onSubmit)}
                             className="mt-10 space-y-8 text-white"
                         >
-                            <h2 className="text-white text-2xl md:text-3xl font-bold text-center">
+                            <h2 className="text-foreground text-2xl md:text-3xl font-bold text-center">
                                 Create a{" "}
-                                <span className="text-accent">Project</span> by
+                                <span className="text-destructive">Project</span> by
                                 filling this form
                             </h2>
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 !mb-5">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 !mb-5 text-foreground">
                                 <FormField
                                     control={form.control}
                                     name="title"
@@ -176,7 +176,7 @@ const CreateProjectPage = () => {
                                             <FormControl>
                                                 <Input
                                                     placeholder="Write a Title"
-                                                    className="bg-secondary placeholder:text-gray-200"
+                                                    className="bg-muted text-white placeholder:text-primary"
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -193,7 +193,7 @@ const CreateProjectPage = () => {
                                             <FormControl>
                                                 <Input
                                                     placeholder="What is your name?"
-                                                    className="bg-secondary placeholder:text-gray-200"
+                                                    className="bg-muted text-white placeholder:text-primary"
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -210,7 +210,7 @@ const CreateProjectPage = () => {
                                             <FormControl>
                                                 <Textarea
                                                     placeholder="Write a brief description..."
-                                                    className="bg-secondary placeholder:text-gray-200"
+                                                    className="bg-muted text-white placeholder:text-primary"
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -252,7 +252,7 @@ const CreateProjectPage = () => {
                                                             );
                                                         }
                                                     }}
-                                                    className="bg-secondary placeholder:text-gray-200"
+                                                    className="bg-muted text-white placeholder:text-primary"
                                                     {...rest}
                                                 />
                                             </FormControl>
@@ -280,7 +280,7 @@ const CreateProjectPage = () => {
                                                         <FormControl>
                                                             <Input
                                                                 placeholder="GitHub, Live Demo, etc."
-                                                                className="bg-secondary placeholder:text-gray-200"
+                                                                className="bg-muted text-white placeholder:text-primary"
                                                                 {...field}
                                                             />
                                                         </FormControl>
@@ -299,7 +299,7 @@ const CreateProjectPage = () => {
                                                         <FormControl>
                                                             <Input
                                                                 placeholder="https://example.com"
-                                                                className="bg-secondary placeholder:text-gray-200"
+                                                                className="bg-muted text-white placeholder:text-primary"
                                                                 {...field}
                                                             />
                                                         </FormControl>
@@ -312,7 +312,7 @@ const CreateProjectPage = () => {
                                                     <TooltipTrigger asChild>
                                                         <Button
                                                             type="button"
-                                                            className="mt-auto !bg-muted hover:!bg-muted"
+                                                            className="mt-auto !bg-primary hover:!bg-primary"
                                                             onClick={() =>
                                                                 remove(index)
                                                             }
@@ -331,7 +331,7 @@ const CreateProjectPage = () => {
                                         <TooltipTrigger asChild>
                                             <button
                                                 type="button"
-                                                className="bg-destructive hover:!bg-destructive p-2 py-1.5 !mt-5 rounded-md"
+                                                className="bg-secondary text-primary hover:!bg-secondary p-2 py-1.5 !mt-5 rounded-md"
                                                 onClick={() =>
                                                     append({
                                                         label: "",
@@ -342,7 +342,7 @@ const CreateProjectPage = () => {
                                                 <PlusIcon />
                                             </button>
                                         </TooltipTrigger>
-                                        <TooltipContent className="bg-secondary">
+                                        <TooltipContent className="bg-destructive text-white">
                                             Add Link
                                         </TooltipContent>
                                     </Tooltip>
@@ -350,7 +350,7 @@ const CreateProjectPage = () => {
                             </div>
                             <Button
                                 type="submit"
-                                className="bg-muted hover:!bg-muted"
+                                className="bg-destructive text-white hover:!bg-destructive"
                             >
                                 Submit
                             </Button>

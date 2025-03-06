@@ -12,7 +12,7 @@ import {
     FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ArrowLeft, PlusIcon, Trash2 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, PlusIcon, Trash2 } from "lucide-react";
 import Link from "next/link";
 import React, { useEffect, useRef } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -34,6 +34,7 @@ import {
     TooltipContent,
     TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Spinner } from "@/components/shared/Spinner";
 
 const formSchema = z.object({
     title: z.string().optional(),
@@ -80,7 +81,11 @@ const UpdateProjectPage = () => {
         }
     );
 
-    const { data: projectData } = useGetSingleProjectQuery({
+    const {
+        data: projectData,
+        isLoading,
+        isFetching,
+    } = useGetSingleProjectQuery({
         projectId: params.projectId,
     });
 
@@ -98,7 +103,7 @@ const UpdateProjectPage = () => {
     const { control, setValue } = form;
     const { fields, append, remove } = useFieldArray({
         control,
-        name: "links", // Matches the form field
+        name: "links",
     });
 
     useEffect(() => {
@@ -164,30 +169,64 @@ const UpdateProjectPage = () => {
         }
     };
 
+    if (isLoading || isFetching) {
+        return (
+            <div className="flex gap-y-5 min-h-screen text-white justify-center items-center text-center mx-5">
+                <Spinner />
+            </div>
+        );
+    }
+
+    if (!projectData) {
+        return (
+            <div className="flex flex-col gap-y-5 min-h-screen text-white justify-center items-center text-center mx-5">
+                <h2 className="text-2xl md:text-3xl font-bold">
+                    Failed to load{" "}
+                    <span className="text-destructive">project</span> detail
+                </h2>
+                <p>Project ID: {params.projectId}</p>
+                <Link href="/dashboard/projects">
+                    <Button className="bg-secondary hover:!bg-secondary">
+                        <ArrowLeft />
+                        Projects
+                    </Button>
+                </Link>
+            </div>
+        );
+    }
+
     return (
         <>
             <div className="m-10 pb-20">
-                <Link
-                    href={`/dashboard/projects/detail/${projectData?.data?._id}`}
-                >
-                    <Button className="bg-secondary hover:!bg-secondary">
-                        <ArrowLeft />
-                        Back to Project
-                    </Button>
-                </Link>
+                <div className="flex flex-col md:flex-row justify-start items-start gap-x-3 gap-y-4">
+                    <Link
+                        href={`/dashboard/projects/detail/${projectData?.data?._id}`}
+                    >
+                        <Button className="bg-accent text-white hover:!bg-accent">
+                            <ArrowLeft />
+                            Back to Project
+                        </Button>
+                    </Link>
+                    <Link href={`/dashboard/projects`}>
+                        <Button className="bg-muted text-white hover:!bg-muted">
+                            Projects
+                            <ArrowUpRight />
+                        </Button>
+                    </Link>
+                </div>
                 <div className="max-w-[1268px]">
                     <Form {...form}>
                         <form
                             onSubmit={form.handleSubmit(onSubmit)}
                             className="mt-10 space-y-8 text-white"
                         >
-                            <h2 className="text-white text-2xl md:text-3xl font-bold text-center">
+                            <h2 className="text-foreground text-2xl md:text-3xl font-bold text-center">
                                 Update Project:{" "}
-                                <span className="text-accent">
+                                <span className="text-destructive">
                                     {projectData?.data?.title}
                                 </span>
                             </h2>
-                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 !mb-5">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 !mb-5 text-foreground">
                                 <FormField
                                     control={form.control}
                                     name="title"
@@ -197,7 +236,7 @@ const UpdateProjectPage = () => {
                                             <FormControl>
                                                 <Input
                                                     placeholder="Write a Title"
-                                                    className="bg-secondary placeholder:text-gray-200"
+                                                    className="bg-muted text-white placeholder:text-primary"
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -214,7 +253,7 @@ const UpdateProjectPage = () => {
                                             <FormControl>
                                                 <Input
                                                     placeholder="What is your name?"
-                                                    className="bg-secondary placeholder:text-gray-200"
+                                                    className="bg-muted text-white placeholder:text-primary"
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -231,7 +270,7 @@ const UpdateProjectPage = () => {
                                             <FormControl>
                                                 <Textarea
                                                     placeholder="Write a brief detail..."
-                                                    className="bg-secondary placeholder:text-gray-200"
+                                                    className="bg-muted text-white placeholder:text-primary"
                                                     {...field}
                                                 />
                                             </FormControl>
@@ -273,7 +312,7 @@ const UpdateProjectPage = () => {
                                                             );
                                                         }
                                                     }}
-                                                    className="bg-secondary placeholder:text-gray-200"
+                                                    className="bg-muted text-white placeholder:text-primary"
                                                     {...rest}
                                                 />
                                             </FormControl>
@@ -301,7 +340,7 @@ const UpdateProjectPage = () => {
                                                         <FormControl>
                                                             <Input
                                                                 placeholder="GitHub, Live Demo, etc."
-                                                                className="bg-secondary placeholder:text-gray-200"
+                                                                className="bg-muted text-white placeholder:text-primary"
                                                                 {...field}
                                                             />
                                                         </FormControl>
@@ -320,7 +359,7 @@ const UpdateProjectPage = () => {
                                                         <FormControl>
                                                             <Input
                                                                 placeholder="https://example.com"
-                                                                className="bg-secondary placeholder:text-gray-200"
+                                                                className="bg-muted text-white placeholder:text-primary"
                                                                 {...field}
                                                             />
                                                         </FormControl>
@@ -333,12 +372,15 @@ const UpdateProjectPage = () => {
                                                     <TooltipTrigger asChild>
                                                         <Button
                                                             type="button"
-                                                            className="mt-auto !bg-muted hover:!bg-muted"
+                                                            className="mt-auto !bg-primary hover:!bg-primary"
                                                             onClick={() =>
                                                                 remove(index)
                                                             }
                                                         >
-                                                            <Trash2 size={16} />
+                                                            <Trash2
+                                                                size={16}
+                                                                className="text-white"
+                                                            />
                                                         </Button>
                                                     </TooltipTrigger>
                                                     <TooltipContent className="bg-destructive">
@@ -352,7 +394,7 @@ const UpdateProjectPage = () => {
                                         <TooltipTrigger asChild>
                                             <button
                                                 type="button"
-                                                className="bg-destructive hover:!bg-destructive p-2 py-1.5 !mt-5 rounded-md"
+                                                className="bg-secondary hover:!bg-secondary p-2 py-1.5 !mt-5 rounded-md"
                                                 onClick={() =>
                                                     append({
                                                         label: "",
@@ -360,10 +402,10 @@ const UpdateProjectPage = () => {
                                                     })
                                                 }
                                             >
-                                                <PlusIcon />
+                                                <PlusIcon className="text-primary" />
                                             </button>
                                         </TooltipTrigger>
-                                        <TooltipContent className="bg-secondary">
+                                        <TooltipContent className="bg-destructive">
                                             Add Link
                                         </TooltipContent>
                                     </Tooltip>
@@ -371,7 +413,7 @@ const UpdateProjectPage = () => {
                             </div>
                             <Button
                                 type="submit"
-                                className="bg-muted hover:!bg-muted"
+                                className="bg-destructive text-white hover:!bg-destructive"
                             >
                                 Submit
                             </Button>

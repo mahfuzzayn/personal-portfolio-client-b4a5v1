@@ -11,7 +11,7 @@ export const generateMetadata = async ({
 
     const { data: blogData } = await res.json();
 
-    return { title: `Update ‣ ${blogData?.title} ‣ Blog ‣ Personal Portfolio` };
+    return { title: `Update ‣ ${blogData?.title ? blogData?.title : "404"} ‣ Blog ‣ Personal Portfolio` };
 };
 
 const UpdateBlogPageLayout = ({

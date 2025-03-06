@@ -4,6 +4,7 @@ import "./globals.css";
 import SessionProviderWrapper from "@/components/shared/SessionProviderWrapper";
 import ReduxProvider from "@/redux/ReduxProvider";
 import ToasterProvider from "@/utils/toaster/ToasterProvider";
+import { ThemeProvider } from "@/components/shared/ThemeProvider";
 
 const redditSans = Reddit_Sans({
     subsets: ["latin"],
@@ -22,12 +23,20 @@ export default async function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html lang="en" suppressHydrationWarning>
             <body className={redditSans.className}>
-                <main className="container max-w-[1920px] mx-auto bg-primary">
+                <main className="container max-w-[1920px] mx-auto bg-background">
                     <ReduxProvider>
                         <SessionProviderWrapper>
-                            {children} <ToasterProvider />
+                            <ThemeProvider
+                                attribute="class"
+                                defaultTheme="light"
+                                enableSystem
+                                disableTransitionOnChange
+                            >
+                                {children}
+                            </ThemeProvider>
+                            <ToasterProvider />
                         </SessionProviderWrapper>
                     </ReduxProvider>
                 </main>

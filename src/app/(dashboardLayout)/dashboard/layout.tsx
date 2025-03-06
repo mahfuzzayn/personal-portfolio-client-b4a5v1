@@ -8,7 +8,7 @@ const DashboardLayout = ({
         <section className="w-full">
             <div className="relative">
                 <SidebarTrigger
-                    className="p-4 bg-muted absolute top-[42px] rounded-l-none"
+                    className="p-4 bg-muted text-white hover:text-white absolute top-[42px] rounded-l-none"
                     size="lg"
                     title="Open Drawer"
                 />

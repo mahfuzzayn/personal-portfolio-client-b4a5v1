@@ -19,9 +19,7 @@ export const authOptions: NextAuthOptions = {
         async jwt({ token, user }) {
             try {
                 if (user) {
-                    let existingUser = await getUser({
-                        email: user?.email as string,
-                    });
+                    let existingUser = await getUser(user?.email as string);
 
                     if (!existingUser.success) {
                         const newUser = {

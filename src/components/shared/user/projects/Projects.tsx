@@ -4,29 +4,43 @@ import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 import DeleteProjectModal from "./DeleteProjectModal";
-import { ArrowUpRight} from "lucide-react";
+import { ArrowUpRight, Inbox } from "lucide-react";
 
 const Projects = ({ projects }: { projects: TProject[] }) => {
+    if (!projects?.length) {
+        return (
+            <div className="my-40 text-center text-foreground space-y-4">
+                <h2 className="text-2xl md:text-3xl font-bold">
+                    No <span className="text-destructive">Projects</span> were
+                    found
+                </h2>
+                <p className="text-foreground flex justify-center items-center gap-x-1">
+                    Start by creating your first project! <Inbox size={16} />
+                </p>
+            </div>
+        );
+    }
+
     return (
         <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 m-10 mb-20 gap-10 max-w-[1268px]">
             {projects.map((project, index: number) => (
                 <div
                     key={project._id}
-                    className="text-white bg-cyan-700 rounded-xl"
+                    className="text-white bg-muted rounded-xl"
                 >
                     <div className="p-4 md:p-6 space-y-5">
                         <h2 className="text-2xl md:text-3xl font-semibold">
                             {project.title}
                         </h2>
                     </div>
-                    <Separator className="bg-cyan-600" />
+                    <Separator className="bg-accent" />
                     <div className="p-4 md:p-6 space-y-5">
                         <ul className="flex flex-row flex-wrap gap-3 text-md md:text-lg text-gray-100">
                             {project.links.map((link: TLink, index) => (
                                 <li key={index}>
                                     <Link
                                         href={`${link.href}`}
-                                        className="text-secondary bg-white px-2 py-1 rounded-md flex gap-x-1"
+                                        className="text-foreground bg-background hover:text-destructive transition-colors px-2 py-1 rounded-md flex gap-x-1"
                                     >
                                         {link.label}
                                         <ArrowUpRight size={16} />
@@ -41,19 +55,19 @@ const Projects = ({ projects }: { projects: TProject[] }) => {
                             )}
                         </p>
                     </div>
-                    <Separator className="bg-cyan-600" />
+                    <Separator className="bg-accent" />
                     <div className="p-4 md:px-6 flex flex-wrap gap-4 mt-2">
                         <Link
                             href={`/dashboard/projects/detail/${project?._id}`}
                         >
-                            <Button className="!bg-primary">
+                            <Button className="!bg-secondary text-black">
                                 View Details
                             </Button>
                         </Link>
                         <Link
                             href={`/dashboard/projects/update/${project?._id}`}
                         >
-                            <Button className="!bg-accent text-gray-700">
+                            <Button className="!bg-destructive text-white">
                                 Update
                             </Button>
                         </Link>

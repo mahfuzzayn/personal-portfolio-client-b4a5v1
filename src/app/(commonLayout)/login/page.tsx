@@ -16,12 +16,12 @@ const LoginPage = () => {
 
     return (
         <section className="flex justify-center min-h-screen">
-            <div className="flex flex-col justify-center items-center text-center text-white p-10 gap-y-5">
+            <div className="flex flex-col justify-center items-center text-center text-foreground p-10 gap-y-5">
                 <h2 className="text-3xl md:text-5xl font-extrabold mb-5 md:mb-10">
                     Login with Ease
                 </h2>
                 <Button
-                    className="w-full max-w-[420px] bg-white text-black p-6 hover:bg-white text-md"
+                    className="w-full max-w-[420px] bg-foreground text-background p-6 hover:bg-foreground text-md"
                     onClick={() => handleLogin("google")}
                 >
                     <Image
@@ -33,7 +33,7 @@ const LoginPage = () => {
                     Continue with Google
                 </Button>
                 <Button
-                    className="w-full max-w-[420px] bg-black text-white p-6 hover:bg-black text-md"
+                    className="w-full max-w-[420px] bg-destructive text-white p-6 hover:bg-destructive text-md"
                     onClick={() => handleLogin("github")}
                 >
                     <Image
@@ -44,7 +44,7 @@ const LoginPage = () => {
                     />
                     Continue with Github
                 </Button>
-                <p className="text-slate-200 max-w-[350px] mt-5 md:mt-10">
+                <p className="text-foreground max-w-[350px] mt-5 md:mt-10">
                     Click on any provider to{" "}
                     <span className="text-muted">login</span> and continue
                     exploring

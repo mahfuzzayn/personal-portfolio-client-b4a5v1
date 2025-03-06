@@ -11,6 +11,9 @@ import React from "react";
 
 const DashboardPage = async () => {
     const session = await getServerSession();
+
+    console.log(session);
+
     const userRes = await fetch(
         `${process.env.BACKEND_URL}/users/${session?.user.email}`
     );
@@ -37,34 +40,38 @@ const DashboardPage = async () => {
         <section className="w-full mb-20">
             <div className="m-10">
                 <Link href="/">
-                    <Button className="bg-secondary hover:!bg-secondary">
+                    <Button className="bg-accent text-white hover:!bg-accent">
                         <ArrowLeft />
                         Back to Home
                     </Button>
                 </Link>
             </div>
             <div className="m-10">
-                <h2 className="text-4xl text-white font-semibold">Dashboard</h2>
+                <h2 className="text-4xl text-foreground font-semibold">Dashboard</h2>
                 <div className="w-full max-w-[1280px] mt-5 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     <div className="bg-muted text-white p-4 rounded-md">
                         <h2 className="text-xl mb-2">Total Blogs</h2>
                         <div className="flex items-center gap-x-2 font-semibold">
-                            <BookIcon />
-                            <p className="text-2xl">{blogsData?.length}</p>
+                            <BookIcon className="h-6 w-6" />
+                            <p className="text-2xl">{blogsData?.length || 0}</p>
                         </div>
                     </div>
                     <div className="bg-muted text-white p-4 rounded-md">
                         <h2 className="text-xl mb-2">Total Projects</h2>
                         <div className="flex items-center gap-x-2 font-semibold">
-                            <InboxIcon />
-                            <p className="text-2xl">{projectsData?.length}</p>
+                            <InboxIcon className="h-6 w-6" />
+                            <p className="text-2xl">
+                                {projectsData?.length || 0}
+                            </p>
                         </div>
                     </div>
                     <div className="bg-muted text-white p-4 rounded-md">
                         <h2 className="text-xl mb-2">Total Messages</h2>
                         <div className="flex items-center gap-x-2 font-semibold">
-                            <MessageSquareIcon />
-                            <p className="text-2xl">{messagesData?.length}</p>
+                            <MessageSquareIcon className="h-6 w-6" />
+                            <p className="text-2xl">
+                                {messagesData?.length || 0}
+                            </p>
                         </div>
                     </div>
                 </div>

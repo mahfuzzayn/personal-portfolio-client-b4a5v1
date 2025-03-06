@@ -3,14 +3,14 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <footer className="bg-secondary text-white text-center py-6 px-5 space-y-4 mt-20">
+        <footer className="bg-primary text-white text-center py-6 px-5 space-y-4 mt-20">
             <p>
                 © {new Date().getFullYear()} Personal Project. All rights
                 reserved
             </p>
             <p>
                 Developed by{" "}
-                <span className="text-accent font-medium hover:text-primary transition-all">
+                <span className="text-muted font-medium hover:text-destructive transition-all">
                     <Link href="https://github.com/mahfuzzayn/" target="_blank">
                         Mahfuz Zayn
                     </Link>
