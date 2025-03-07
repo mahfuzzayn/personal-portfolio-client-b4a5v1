@@ -10,7 +10,7 @@ import { signIn } from "next-auth/react";
 const LoginPage = () => {
     const handleLogin = async (provider: string) => {
         await signIn(provider, {
-            callbackUrl: "http://localhost:3000/",
+            callbackUrl: "https://perpodia.vercel.app/",
         });
     };
 

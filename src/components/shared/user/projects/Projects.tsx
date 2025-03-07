@@ -22,7 +22,7 @@ const Projects = ({ projects }: { projects: TProject[] }) => {
     }
 
     return (
-        <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 m-10 mb-20 gap-10 max-w-[1268px]">
+        <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 my-20 px-10 gap-10 max-w-[1268px]">
             {projects.map((project, index: number) => (
                 <div
                     key={project._id}

@@ -1,23 +1,20 @@
 import { Pagination } from "@/components/shared/public/blogs/Pagination";
 import Projects from "@/components/shared/user/projects/Projects";
 import { Button } from "@/components/ui/button";
+import { searchParams } from "@/types";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import { getServerSession } from "next-auth";
 import Link from "next/link";
 
-const DashboardProjectsPage = async ({
-    searchParams,
-}: {
-    searchParams?: { page?: string };
-}) => {
+const DashboardProjectsPage = async ({ searchParams }: searchParams) => {
+    const page = Number((await searchParams)?.page) || 1;
+
     const session = await getServerSession();
     const userRes = await fetch(
         `${process.env.BACKEND_URL}/users/${session?.user.email}`
     );
 
     const { data: user } = await userRes.json();
-
-    const page = Number(searchParams?.page) || 1;
 
     const res = await fetch(
         `${process.env.BACKEND_URL}/projects?creatorId=${user?._id}&page=${page}&limit=5`
@@ -34,7 +31,9 @@ const DashboardProjectsPage = async ({
                         Back to Dashboard
                     </Button>
                 </Link>
-                <h2 className="text-3xl font-semibold text-foreground">Projects</h2>
+                <h2 className="text-3xl font-semibold text-foreground">
+                    Projects
+                </h2>
                 <Link href="/dashboard/projects/create-project">
                     <Button className="bg-muted text-white hover:!bg-muted">
                         Create Project

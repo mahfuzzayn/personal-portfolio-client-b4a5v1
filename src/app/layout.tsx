@@ -12,9 +12,12 @@ const redditSans = Reddit_Sans({
 });
 
 export const metadata: Metadata = {
-    title: "Home ‣ Personal Portfolio",
+    title: "Home ‣ PerpoDia",
     description:
-        "Welcome to personal portfolio. Explore works, projects, and ideas. Let's explore something amazing together.",
+        "Welcome to PerpoDia. Explore projects, blogs and ideas. Let's explore something amazing together.",
+    icons: {
+        icon: "/home-favicon.ico",
+    },
 };
 
 export default async function RootLayout({

@@ -26,7 +26,7 @@ const FeaturedProjects = ({ projects }: { projects: TProject[] }) => {
                                 </span>{" "}
                                 {project?.description.slice(
                                     0,
-                                    project?.description?.length * 0.5
+                                    65
                                 )}
                                 {"..."}
                             </p>

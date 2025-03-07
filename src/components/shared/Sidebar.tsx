@@ -11,6 +11,7 @@ import {
 } from "../ui/sidebar";
 import { BookIcon, Inbox, MessageSquareIcon } from "lucide-react";
 import { ModeToggle } from "./ModeToggle";
+import Link from "next/link";
 
 const items = [
     {
@@ -43,10 +44,10 @@ const PPSidebar = () => {
                             {items.map((item) => (
                                 <SidebarMenuItem key={item.title}>
                                     <SidebarMenuButton asChild>
-                                        <a href={item.url}>
+                                        <Link href={item.url}>
                                             <item.icon />
                                             <span>{item.title}</span>
-                                        </a>
+                                        </Link>
                                     </SidebarMenuButton>
                                 </SidebarMenuItem>
                             ))}

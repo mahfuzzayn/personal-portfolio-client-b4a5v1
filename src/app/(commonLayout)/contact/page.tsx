@@ -106,7 +106,7 @@ const ContactPage = () => {
                                         <FormControl>
                                             <Input
                                                 placeholder="What is your name?"
-                                                className="bg-secondary placeholder:text-primary"
+                                                className="bg-muted text-white placeholder:text-primary"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -123,7 +123,7 @@ const ContactPage = () => {
                                         <FormControl>
                                             <Input
                                                 placeholder="What is your email?"
-                                                className="bg-secondary placeholder:text-primary"
+                                                className="bg-muted text-white placeholder:text-primary"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -140,7 +140,7 @@ const ContactPage = () => {
                                         <FormControl>
                                             <Textarea
                                                 placeholder="Write a brief message..."
-                                                className="bg-secondary placeholder:text-primary"
+                                                className="bg-muted text-white placeholder:text-primary"
                                                 {...field}
                                             />
                                         </FormControl>
@@ -151,7 +151,7 @@ const ContactPage = () => {
                         </div>
                         <Button
                             type="submit"
-                            className="bg-muted hover:!bg-muted text-white"
+                            className="bg-destructive hover:!bg-destructive text-white"
                         >
                             Submit
                         </Button>

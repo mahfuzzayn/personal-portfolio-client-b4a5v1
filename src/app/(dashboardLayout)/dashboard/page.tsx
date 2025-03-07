@@ -12,8 +12,6 @@ import React from "react";
 const DashboardPage = async () => {
     const session = await getServerSession();
 
-    console.log(session);
-
     const userRes = await fetch(
         `${process.env.BACKEND_URL}/users/${session?.user.email}`
     );

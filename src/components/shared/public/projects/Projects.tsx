@@ -5,6 +5,21 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight } from "lucide-react";
 
 const Projects = ({ projects }: { projects: TProject[] }) => {
+    if (!projects?.length) {
+        return (
+            <div className="my-40 text-center text-foreground space-y-4">
+                <h2 className="text-2xl md:text-3xl font-bold">
+                    No <span className="text-destructive">Projects</span> were
+                    found
+                </h2>
+                <p className="text-foreground max-w-xl mx-auto">
+                    Create your own project and showcase it here for the world
+                    to see. Innovation begins with you! ✨
+                </p>
+            </div>
+        );
+    }
+
     return (
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 m-10 gap-10 max-w-[1268px] mx-auto">
             {projects.map((project, index) => (
@@ -20,7 +35,7 @@ const Projects = ({ projects }: { projects: TProject[] }) => {
                             <span className="font-semibold">Description:</span>{" "}
                             {project?.description.slice(
                                 0,
-                                project?.description?.length * 0.5
+                                65
                             )}
                             {"..."}
                         </p>

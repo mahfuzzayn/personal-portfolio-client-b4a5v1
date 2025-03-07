@@ -15,6 +15,8 @@ import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import { signOut, useSession } from "next-auth/react";
 import { ModeToggle } from "./ModeToggle";
+import headerLogo from "../../assets/images/perpodia-logo.png";
+import Image from "next/image";
 
 type UserProps = {
     user?: {
@@ -66,16 +68,21 @@ const Header = () => {
             ref={menuRef}
             className={`flex flex-col md:flex-row md:justify-between md:items-center py-5 px-10 bg-primary text-white relative transition-all overflow-hidden ${
                 isMenuOpen && session?.user
-                    ? "h-[340px]"
+                    ? "h-[350px]"
                     : isMenuOpen
-                    ? "h-[310px]"
+                    ? "h-[320px]"
                     : "h-[80px]"
             }`}
         >
-            <Link href="/">
-                <h2 className="text-2xl font-bold my-[4px]">
-                    Personal Portfolio
-                </h2>
+            <Link href="/" className="inline-block">
+                <Image
+                    src={headerLogo}
+                    width={140}
+                    height={80}
+                    alt="Perpodia Header Logo"
+                    priority
+                    className="relative top-[-6px] md:top-0 h-auto w-auto max-w-[120px] md:max-w-[140px]"
+                />
             </Link>
             <nav className="hidden md:block">
                 <ul className="flex items-center gap-x-5">

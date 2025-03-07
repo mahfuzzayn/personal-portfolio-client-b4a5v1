@@ -2,7 +2,12 @@ import { Metadata } from "next";
 import React from "react";
 
 export const metadata: Metadata = {
-    title: "Projects ‣ Personal Portfolio",
+    title: "Projects ‣ PerpoDia",
+    description:
+        "Browse through our public projects and explore the work we've done. Get inspired by creative solutions and innovations from various fields.",
+    icons: {
+        icon: "/projects-favicon.ico",
+    },
 };
 
 const ProjectsPageLayout = ({

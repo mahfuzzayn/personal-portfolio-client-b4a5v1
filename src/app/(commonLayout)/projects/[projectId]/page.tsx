@@ -1,32 +1,27 @@
 import ProjectDetail from "@/components/shared/public/projects/ProjectDetail";
 import { Button } from "@/components/ui/button";
+import { projectParams } from "@/types";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-export const generateMetadata = async ({
-    params,
-}: {
-    params: { projectId: string };
-}) => {
-    const res = await fetch(
-        `${process.env.BACKEND_URL}/projects/${params.projectId}`
-    );
+export const generateMetadata = async ({ params }: projectParams) => {
+    const { projectId } = await params;
+    const res = await fetch(`${process.env.BACKEND_URL}/projects/${projectId}`);
 
-    const { data: blogData } = await res.json();
+    const { data: projectData } = await res.json();
 
     return {
-        title: `${blogData?.title} ‣ Project Detail ‣ Personal Portfolio`,
+        title: `${
+            projectData?.title ? projectData?.title : "404"
+        } ‣ Project Detail ‣ PerpoDia`,
+        description:
+            "Explore the details of this project, including its objectives, challenges, solutions, and the impact it has had. Learn how we approached the project and the results we achieved.",
     };
 };
 
-const BlogDetailPage = async ({
-    params,
-}: {
-    params: { projectId: string };
-}) => {
-    const res = await fetch(
-        `${process.env.BACKEND_URL}/projects/${params.projectId}`
-    );
+const ProjectDetailPage = async ({ params }: projectParams) => {
+    const { projectId } = await params;
+    const res = await fetch(`${process.env.BACKEND_URL}/projects/${projectId}`);
 
     const { data: projectData } = await res.json();
 
@@ -46,7 +41,7 @@ const BlogDetailPage = async ({
                         Failed to load{" "}
                         <span className="text-destructive">project</span> detail
                     </h2>
-                    <p>Project ID: {params.projectId}</p>
+                    <p>Project ID: {projectId}</p>
                     <Link href="/projects">
                         <Button className="bg-secondary text-primary hover:!bg-secondary">
                             <ArrowLeft />
@@ -73,4 +68,4 @@ const BlogDetailPage = async ({
     );
 };
 
-export default BlogDetailPage;
+export default ProjectDetailPage;

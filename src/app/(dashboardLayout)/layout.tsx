@@ -6,9 +6,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Footer from "@/components/shared/Footer";
 
 export const metadata: Metadata = {
-    title: "Dashboard ‣ Personal Portfolio",
+    title: "Dashboard ‣ PerpoDia",
     description:
-        "Welcome to personal portfolio. Explore works, projects, and ideas. Let's explore something amazing together.",
+        "Manage your projects, blogs and messages effortlessly. Create new content, update existing projects, and organize your portfolio efficiently.",
+    icons: {
+        icon: "/dashboard-favicon.ico",
+    },
 };
 
 export default async function DashboardLayout({

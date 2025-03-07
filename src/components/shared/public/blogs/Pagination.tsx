@@ -18,7 +18,7 @@ export const Pagination = ({ currentPage, totalPages }: PaginationProps) => {
     };
 
     return (
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center flex-wrap gap-y-6 gap-x-4">
             <button
                 disabled={currentPage <= 1}
                 onClick={() => changePage(currentPage - 1)}

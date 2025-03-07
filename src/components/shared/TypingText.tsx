@@ -47,7 +47,7 @@ const TypingText = () => {
 
     return (
         <motion.div
-            className="text-3xl font-bold text-destructive my-4"
+            className="text-2xl md:text-3xl font-bold text-destructive my-4"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}

@@ -18,3 +18,7 @@ export type TBlog = {
     createdAt: Date;
     updatedAt: Date;
 };
+
+export interface blogParams {
+    params: Promise<{ blogId: string }>;
+}

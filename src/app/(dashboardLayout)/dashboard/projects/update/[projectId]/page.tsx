@@ -179,19 +179,29 @@ const UpdateProjectPage = () => {
 
     if (!projectData) {
         return (
-            <div className="flex flex-col gap-y-5 min-h-screen text-white justify-center items-center text-center mx-5">
-                <h2 className="text-2xl md:text-3xl font-bold">
-                    Failed to load{" "}
-                    <span className="text-destructive">project</span> detail
-                </h2>
-                <p>Project ID: {params.projectId}</p>
-                <Link href="/dashboard/projects">
-                    <Button className="bg-secondary hover:!bg-secondary">
-                        <ArrowLeft />
-                        Projects
-                    </Button>
-                </Link>
-            </div>
+            <>
+                <div className="m-10">
+                    <Link href="/dashboard/projects">
+                        <Button className="bg-accent text-white hover:!bg-accent">
+                            <ArrowLeft />
+                            Projects
+                        </Button>
+                    </Link>
+                </div>
+                <div className="flex flex-col gap-y-5 my-40 text-foreground justify-center items-center text-center">
+                    <h2 className="text-2xl md:text-3xl font-bold">
+                        Failed to load{" "}
+                        <span className="text-destructive">project</span> detail
+                    </h2>
+                    <p>Project ID: {params.projectId}</p>
+                    <Link href="/dashboard/projects">
+                        <Button className="bg-secondary text-primary hover:!bg-secondary">
+                            <ArrowLeft />
+                            Projects
+                        </Button>
+                    </Link>
+                </div>
+            </>
         );
     }
 

@@ -22,7 +22,7 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
     }
 
     return (
-        <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 m-10 mb-20 gap-10 max-w-[1268px]">
+        <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 my-20 gap-10 px-10 max-w-[1268px]">
             {blogs.map((blog, index: number) => (
                 <div key={blog._id} className="text-white bg-muted rounded-xl">
                     <div className="p-4 md:p-6 space-y-3">
@@ -33,7 +33,7 @@ const Blogs = ({ blogs }: { blogs: TBlog[] }) => {
                             <span className="font-semibold">Content:</span>{" "}
                             {blog?.content.slice(
                                 0,
-                                blog?.content?.length * 0.2
+                                65
                             )}
                             {"..."}
                         </p>

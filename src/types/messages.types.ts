@@ -6,3 +6,7 @@ export type TMessage = {
     createdAt: Date;
     updatedAt: Date;
 };
+
+export interface messageParams {
+    params: Promise<{ messageId: string }>;
+}

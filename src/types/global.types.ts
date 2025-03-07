@@ -33,3 +33,7 @@ export type TQueryParam = {
     name: string;
     value: boolean | React.Key;
 };
+
+export interface searchParams {
+    searchParams: Promise<{ page: string }>;
+}

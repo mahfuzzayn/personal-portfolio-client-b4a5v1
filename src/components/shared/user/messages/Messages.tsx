@@ -21,7 +21,7 @@ const Messages = ({ messages }: { messages: TMessage[] }) => {
     }
 
     return (
-        <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 m-10 mb-20 gap-10 max-w-[1268px]">
+        <section className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 my-20 px-10 gap-10 max-w-[1268px]">
             {messages.map((message, index: number) => (
                 <div
                     key={message._id}
@@ -35,7 +35,7 @@ const Messages = ({ messages }: { messages: TMessage[] }) => {
                             <span className="font-semibold">Content:</span>{" "}
                             {message?.message.slice(
                                 0,
-                                message?.message?.length * 0.2
+                                65
                             )}
                             {"..."}
                         </p>

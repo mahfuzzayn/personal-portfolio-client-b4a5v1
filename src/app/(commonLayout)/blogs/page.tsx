@@ -1,6 +1,6 @@
 import Blogs from "@/components/shared/public/blogs/Blogs";
 import { Pagination } from "@/components/shared/public/blogs/Pagination";
-
+import { searchParams } from "@/types";
 import { notFound } from "next/navigation";
 
 const fetchBlogs = async (page: number) => {
@@ -16,12 +16,11 @@ const fetchBlogs = async (page: number) => {
     return res.json();
 };
 
-const BlogsPage = async ({
-    searchParams,
-}: {
-    searchParams?: { page?: string };
-}) => {
-    const page = Number(searchParams?.page) || 1;
+const BlogsPage = async ({ searchParams }: searchParams) => {
+    const page = Number((await searchParams).page) || 1;
+
+    if (isNaN(page) || page < 1) return notFound();
+
     const { data: blogsData, meta } = await fetchBlogs(page);
 
     return (

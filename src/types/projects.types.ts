@@ -20,3 +20,7 @@ export type TImage = {
     src: string;
     alt: string;
 };
+
+export interface projectParams {
+    params: Promise<{ projectId: string }>;
+}

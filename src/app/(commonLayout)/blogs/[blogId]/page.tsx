@@ -1,31 +1,25 @@
 import BlogDetail from "@/components/shared/public/blogs/BlogDetail";
 import { Button } from "@/components/ui/button";
+import { blogParams } from "@/types";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
-export const generateMetadata = async ({
-    params,
-}: {
-    params: { blogId: string };
-}) => {
-    const res = await fetch(
-        `${process.env.BACKEND_URL}/blogs/${params.blogId}`
-    );
-
+export const generateMetadata = async ({ params }: blogParams) => {
+    const { blogId } = await params;
+    const res = await fetch(`${process.env.BACKEND_URL}/blogs/${blogId}`);
     const { data: blogData } = await res.json();
 
     return {
         title: `${
             blogData?.title ? blogData?.title : "404"
-        } ‣ Blog Detail ‣ Personal Portfolio`,
+        } ‣ Blog Detail ‣ PerpoDia`,
+        description:
+            "Dive deep into this blog post where we explore key insights, ideas, and topics in detail. Learn about the subject matter, analysis, and perspectives shared in this article.",
     };
 };
-
-const BlogDetailPage = async ({ params }: { params: { blogId: string } }) => {
-    const res = await fetch(
-        `${process.env.BACKEND_URL}/blogs/${params.blogId}`
-    );
-
+const BlogDetailPage = async ({ params }: blogParams) => {
+    const { blogId } = await params;
+    const res = await fetch(`${process.env.BACKEND_URL}/blogs/${blogId}`);
     const { data: blogData } = await res.json();
 
     if (!blogData) {
@@ -44,7 +38,7 @@ const BlogDetailPage = async ({ params }: { params: { blogId: string } }) => {
                         Failed to load{" "}
                         <span className="text-destructive">blog</span> detail
                     </h2>
-                    <p>Blog ID: {params.blogId}</p>
+                    <p>Blog ID: {blogId}</p>
                     <Link href="/blogs">
                         <Button className="bg-secondary text-primary hover:!bg-secondary">
                             <ArrowLeft />

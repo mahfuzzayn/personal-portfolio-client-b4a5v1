@@ -12,15 +12,14 @@ const Banner = () => {
         <section className="relative w-full max-h-[768px] overflow-hidden">
             <Image
                 src={bannerImage}
-                layout="fill"
-                objectFit="cover"
+                fill
                 priority
                 alt="Banner Image"
-                className="absolute inset-0 z-0"
+                className="object-cover absolute inset-0 z-0"
             />
             <div className="absolute inset-0 bg-primary opacity-10 dark:bg-opacity-70 z-1"></div>
             <div className="relative z-10 flex flex-col items-start justify-center h-[768px] text-center text-white px-8 md:px-10 lg:px-20 xl:px-32">
-                <h1 className="text-4xl md:text-6xl font-extrabold">
+                <h1 className="text-4xl text-left md:text-6xl font-extrabold">
                     Mahfuz Zayn
                 </h1>
                 <TypingText />

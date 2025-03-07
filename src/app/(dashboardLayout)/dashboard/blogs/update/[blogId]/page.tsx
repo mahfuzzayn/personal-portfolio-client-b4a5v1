@@ -103,7 +103,9 @@ const UpdateBlogPage = () => {
             form.setValue("title", blogData?.data?.title);
             form.setValue("author", blogData?.data?.author?.name);
             form.setValue("content", blogData?.data?.content);
-            form.setValue("category", blogData?.data?.category);
+            form.setValue("category", blogData?.data?.category, {
+                shouldValidate: true,
+            });
         }
     }, [blogData, form]);
 
@@ -166,19 +168,29 @@ const UpdateBlogPage = () => {
 
     if (!blogData) {
         return (
-            <div className="flex flex-col gap-y-5 min-h-screen text-white justify-center items-center text-center">
-                <h2 className="text-2xl md:text-3xl font-bold">
-                    Failed to load{" "}
-                    <span className="text-destructive">blog</span> detail
-                </h2>
-                <p>Blog ID: {params.blogId}</p>
-                <Link href="/dashboard/blogs">
-                    <Button className="bg-secondary hover:!bg-secondary">
-                        <ArrowLeft />
-                        Blogs
-                    </Button>
-                </Link>
-            </div>
+            <>
+                <div className="m-10">
+                    <Link href="/dashboard/blogs">
+                        <Button className="bg-accent text-white hover:!bg-accent">
+                            <ArrowLeft />
+                            Blogs
+                        </Button>
+                    </Link>
+                </div>
+                <div className="flex flex-col gap-y-5 my-40 text-foreground justify-center items-center text-center mx-5">
+                    <h2 className="text-2xl md:text-3xl font-bold">
+                        Failed to load{" "}
+                        <span className="text-destructive">blog</span> detail
+                    </h2>
+                    <p>Blog ID: {params.blogId}</p>
+                    <Link href="/dashboard/blogs">
+                        <Button className="bg-secondary text-primary hover:!bg-secondary">
+                            <ArrowLeft />
+                            Back to Blogs
+                        </Button>
+                    </Link>
+                </div>
+            </>
         );
     }
 
@@ -307,7 +319,11 @@ const UpdateBlogPage = () => {
                                         <FormControl>
                                             <Select
                                                 onValueChange={field.onChange}
-                                                value={field.value}
+                                                value={
+                                                    field.value ||
+                                                    blogData?.data?.category ||
+                                                    ""
+                                                }
                                             >
                                                 <SelectTrigger className="w-[180px] bg-muted text-white placeholder:text-white">
                                                     <SelectValue
